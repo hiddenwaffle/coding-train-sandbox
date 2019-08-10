@@ -1,7 +1,7 @@
 {
-  "name": "draw",
+  "name": "coding-train-sandbox",
   "version": "1.0.0",
-  "main": "js/index.ts",
+  "main": "js/index.js",
   "license": "MIT",
   "private": true,
   "scripts": {
