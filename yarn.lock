@@ -1927,6 +1927,15 @@ dotenv@^5.0.0:
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-5.0.1.tgz#a5317459bd3d79ab88cff6e44057a6a3fbb1fcef"
   integrity sha512-4As8uPrjfwb7VXC+WnLCbXK7y+Ueb2B3zgNCePYfhxS1PYeaO1YTeplffTEcbfLhvFNGLAz90VvJs9yomG7bow==
 
+draw@^0.0.0:
+  version "0.0.0"
+  resolved "https://registry.yarnpkg.com/draw/-/draw-0.0.0.tgz#2929c93fcaaf09f6b5eb2d83d12d5a9ac5fdf6c4"
+  integrity sha1-KSnJP8qvCfa16y2D0S1amsX99sQ=
+  dependencies:
+    polygon "0.0.9"
+    segseg "~0.2.0"
+    vec2 "~1.3.2"
+
 duplexer2@~0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/duplexer2/-/duplexer2-0.1.4.tgz#8b12dab878c0d69e3e7891051662a32fc6bddcc1"
@@ -3697,6 +3706,14 @@ pn@^1.1.0:
   resolved "https://registry.yarnpkg.com/pn/-/pn-1.1.0.tgz#e2f4cef0e219f463c179ab37463e4e1ecdccbafb"
   integrity sha512-2qHaIQr2VLRFoxe2nASzsV6ef4yOOH+Fi9FBOVH6cqeSgUnoyySPZkxzLuzd+RYOQTRpROA0ztTMqxROKSb/nA==
 
+polygon@0.0.9:
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/polygon/-/polygon-0.0.9.tgz#983b6394df7de825baae37c26e84fee34a00fae5"
+  integrity sha1-mDtjlN996CW6rjfCboT+40oA+uU=
+  dependencies:
+    segseg "~0.2.0"
+    vec2 "~1.3.2"
+
 posix-character-classes@^0.1.0:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/posix-character-classes/-/posix-character-classes-0.1.1.tgz#01eac0fe3b5af71a2a6c02feabb8c1fef7e00eab"
@@ -4453,6 +4470,11 @@ saxes@^3.1.9:
   dependencies:
     xmlchars "^2.1.1"
 
+segseg@~0.2.0:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/segseg/-/segseg-0.2.2.tgz#9620ac8d60d2f098c874b945c91cddfaffe3e3d7"
+  integrity sha1-liCsjWDS8JjIdLlFyRzd+v/j49c=
+
 semver@^5.3.0, semver@^5.4.1, semver@^5.5.0, semver@^5.6.0:
   version "5.7.0"
   resolved "https://registry.yarnpkg.com/semver/-/semver-5.7.0.tgz#790a7cf6fea5459bac96110b29b60412dc8ff96b"
@@ -4998,11 +5020,6 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript@^3.5.3:
-  version "3.5.3"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.5.3.tgz#c830f657f93f1ea846819e929092f5fe5983e977"
-  integrity sha512-ACzBtm/PhXBDId6a6sDJfroT2pOWt/oOnk4/dElG5G33ZL776N3Y6/6bKZJBFpd+b05F3Ct9qDjMeJmRWtE2/g==
-
 uncss@^0.17.0:
   version "0.17.0"
   resolved "https://registry.yarnpkg.com/uncss/-/uncss-0.17.0.tgz#7d2682a6fffea2d90d001231dd151cc34c5a2b08"
@@ -5148,6 +5165,11 @@ v8-compile-cache@^2.0.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/v8-compile-cache/-/v8-compile-cache-2.1.0.tgz#e14de37b31a6d194f5690d67efc4e7f6fc6ab30e"
   integrity sha512-usZBT3PW+LOjM25wbqIlZwPeJV+3OSz3M1k1Ws8snlW39dZyYL9lOGC5FgPVHfk0jKmjiDV8Z0mIbVQPiwFs7g==
+
+vec2@~1.3.2:
+  version "1.3.4"
+  resolved "https://registry.yarnpkg.com/vec2/-/vec2-1.3.4.tgz#f716846649243dc7d9136842d7e42a694e5779a6"
+  integrity sha1-9xaEZkkkPcfZE2hC1+QqaU5XeaY=
 
 vendors@^1.0.0:
   version "1.0.3"

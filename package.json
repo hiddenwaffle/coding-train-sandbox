@@ -1,7 +1,7 @@
 {
-  "name": "tutorial",
+  "name": "draw",
   "version": "1.0.0",
-  "main": "js/index.js",
+  "main": "js/index.ts",
   "license": "MIT",
   "private": true,
   "scripts": {
@@ -9,7 +9,6 @@
     "build": "parcel build js/index.html"
   },
   "devDependencies": {
-    "parcel-bundler": "^1.12.3",
-    "typescript": "^3.5.3"
+    "parcel-bundler": "^1.12.3"
   }
 }
