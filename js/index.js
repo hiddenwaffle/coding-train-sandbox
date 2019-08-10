@@ -1,14 +1,14 @@
-import { Sketch, CENTER } from './railbike'
-
+import { Sketch } from './railbike'
 const q = new Sketch()
-q.size(640, 360)
 
-let x = 10
+q.size(640, 360)
+q.background(50)
 
 q.draw = () => {
-  q.background(50)
-  q.fill(150)
   q.stroke(255)
-  q.rectMode(CENTER)
-  q.rect(320, 180, 100, 50)
+  q.line(q.pmouseX, q.pmouseY, q.mouseX, q.mouseY)
+}
+
+q.mousePressed = () => {
+  q.background(50)
 }

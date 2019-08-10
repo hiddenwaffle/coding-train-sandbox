@@ -1,9 +1,10 @@
-export const CORNER = 'CORNER'
-export const CENTER = 'CENTER'
-const validRectModes = [CORNER, CENTER]
+const CORNER = 'CORNER'
+const CENTER = 'CENTER'
+const VALID_RECT_MODES = [CORNER, CENTER]
 
 export class Sketch {
   constructor(parent) {
+    // Canvas and Context Setup -------------------------------------------//
     this.canvas = document.createElement('canvas')
     this.ctx = this.canvas.getContext('2d', { alpha: false })
     if (parent) {
@@ -11,8 +12,35 @@ export class Sketch {
     } else {
       document.body.appendChild(this.canvas)
     }
+    // Simple Defaults ----------------------------------------------------//
     this.currentRectMode = CORNER
     this.animationFrameId = null
+    // Mouse Setup --------------------------------------------------------//
+    this.canvas.addEventListener('mousemove', (event) => {
+      this.pmouseX = this.mouseX
+      this.pmouseY = this.mouseY
+      const rect = this.canvas.getBoundingClientRect()
+      this.mouseX = event.clientX - rect.left
+      this.mouseY = event.clientY - rect.top
+    })
+    this.canvas.addEventListener('mousedown', () => {
+      if (!this._isMousePressed) {
+        this._isMousePressed = true
+        this._mousePressed()
+      }
+    })
+    window.addEventListener('mouseup', () => {
+      this._isMousePressed = false
+    })
+    this.pmouseX = 1
+    this.pmouseY = 1
+    this.mouseX = 1
+    this.mouseY = 1
+    this._mousePressed = () => { console.log('no op') } // no-op
+    this._isMousePressed = false
+    // Public Constants ---------------------------------------------------//
+    this.CORNER = CORNER
+    this.CENTER = CENTER
   }
 
   get draw() {
@@ -34,6 +62,22 @@ export class Sketch {
     loop()
   }
 
+  get mousePressed() {
+    return this._isMousePressed // return a boolean... trickery here
+  }
+
+  set mousePressed(f) {
+    this._mousePressed = f // accepts a function... trickery here
+  }
+
+  get width() {
+    return this.canvas.width
+  }
+
+  get height() {
+    return this.canvas.height
+  }
+
   /**
    * Colors are set like Processing defaults.
    */
@@ -51,7 +95,7 @@ export class Sketch {
   }
 
   rectMode(mode) {
-    if (validRectModes.includes(mode)) {
+    if (VALID_RECT_MODES.includes(mode)) {
       this.currentRectMode = mode
     } else {
       throw new Error(`Invalid mode: ${mode}`)
@@ -108,6 +152,6 @@ export class Sketch {
   }
 }
 
-// TODO: Use this somewhere?
+// TODO: Use this somewhere? Would need adjustments to mouse position.
 // canvas.style.transformOrigin = '0 0'
 // canvas.style.transform = 'scale(2)'
