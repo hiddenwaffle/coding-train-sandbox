@@ -1,15 +1,14 @@
-import Draw from './draw'
-const q = new Draw()
+import { Sketch, CENTER } from './railbike'
 
+const q = new Sketch()
 q.size(640, 360)
-q.background(0, 0, 0)
 
-q.stroke(0, 0, 255)
-q.line(100, 50, 600, 250)
+let x = 10
 
-q.stroke(0, 255, 0)
-q.fill(0, 255, 0)
-q.rect(100, 50, 300, 200)
-
-q.fill(255, 0, 0, 127)
-q.rect(150, 50, 100, 300)
+q.draw = () => {
+  q.background(50)
+  q.fill(150)
+  q.stroke(255)
+  q.rectMode(CENTER)
+  q.rect(320, 180, 100, 50)
+}
