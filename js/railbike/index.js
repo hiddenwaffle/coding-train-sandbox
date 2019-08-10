@@ -171,7 +171,8 @@ export class Sketch {
   }
 
   _setStyle2(style, a, b) {
-    this.ctx[style] = `rgb(${a},${a},${a},${b})`
+    const alpha = (b / 255).toFixed(3)
+    this.ctx[style] = `rgba(${a},${a},${a},${alpha})`
   }
 
   _setStyle3(style, a, b, c) {
@@ -182,8 +183,12 @@ export class Sketch {
     const alpha = (d / 255).toFixed(3)
     this.ctx[style] = `rgba(${a},${b},${c},${alpha})`
   }
+
+  random(min, max) {
+    return (Math.random() * ((max || 0) - min)) + min
+  }
 }
 
-// TODO: Use this somewhere? Would need adjustments to mouse position.
+// TODO: Use this somewhere? Might need adjustments to mouse position?
 // canvas.style.transformOrigin = '0 0'
 // canvas.style.transform = 'scale(2)'
