@@ -12,3 +12,7 @@ q.draw = () => {
 q.mousePressed = () => {
   q.background(50)
 }
+
+q.keyPressed = () => {
+  q.background(0, 255, 0)
+}

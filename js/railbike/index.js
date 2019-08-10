@@ -36,8 +36,20 @@ export class Sketch {
     this.pmouseY = 1
     this.mouseX = 1
     this.mouseY = 1
-    this._mousePressed = () => { console.log('no op') } // no-op
+    this._mousePressed = () => { } // no-op
     this._isMousePressed = false
+    // Keyboard Setup --------------------------------------------------------//
+    window.addEventListener('keydown', () => {
+      if (!this._isKeyPressed) {
+        this._isKeyPressed = true
+        this._keyPressed()
+      }
+    })
+    window.addEventListener('keyup', () => {
+      this._isKeyPressed = false
+    })
+    this._keyPressed = () => { } // no-op
+    this._isKeyPressed = false
     // Public Constants ---------------------------------------------------//
     this.CORNER = CORNER
     this.CENTER = CENTER
@@ -68,6 +80,14 @@ export class Sketch {
 
   set mousePressed(f) {
     this._mousePressed = f // accepts a function... trickery here
+  }
+
+  get keyPressed() {
+    return this._isKeyPressed // return a boolean... trickery here
+  }
+
+  set keyPressed(f) {
+    this._keyPressed = f // accepts a function... trickery here
   }
 
   get width() {
