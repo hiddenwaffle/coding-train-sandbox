@@ -2,6 +2,9 @@ const CORNER = 'CORNER'
 const CENTER = 'CENTER'
 const VALID_RECT_MODES = [CORNER, CENTER]
 
+const PI = Math.PI
+const TWO_PI = Math.PI * 2
+
 export class Sketch {
   constructor(parent) {
     // Canvas and Context Setup -------------------------------------------//
@@ -53,6 +56,8 @@ export class Sketch {
     // Public Constants ---------------------------------------------------//
     this.CORNER = CORNER
     this.CENTER = CENTER
+    this.PI = PI
+    this.TWO_PI = TWO_PI
   }
 
   get draw() {
@@ -133,6 +138,13 @@ export class Sketch {
     }
     this.ctx.fillRect(left, top, width, height)
     this.ctx.strokeRect(left, top, width, height)
+  }
+
+  ellipse(x, y, radiusW, radiusH) {
+    this.ctx.beginPath()
+    this.ctx.ellipse(x, y, radiusW / 2, radiusH / 2, 0, 0, TWO_PI)
+    this.ctx.fill()
+    this.ctx.stroke()
   }
 
   background(...args) {
