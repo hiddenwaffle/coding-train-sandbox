@@ -2,6 +2,8 @@ const CORNER = 'CORNER'
 const CENTER = 'CENTER'
 const VALID_RECT_MODES = [CORNER, CENTER]
 
+const CLOSE = 'CLOSE'
+
 const PI = Math.PI
 const TWO_PI = Math.PI * 2
 
@@ -18,6 +20,7 @@ export class Sketch {
     // Simple Defaults ----------------------------------------------------//
     this.currentRectMode = CORNER
     this.animationFrameId = null
+    this.print = console.log // for completion's sake
     // Mouse Setup --------------------------------------------------------//
     window.addEventListener('mousemove', (event) => {
       this.pmouseX = this.mouseX
@@ -54,8 +57,10 @@ export class Sketch {
     this._keyPressed = () => { } // no-op
     this._isKeyPressed = false
     // Public Constants ---------------------------------------------------//
+    // These are in the same order as the top of this file.
     this.CORNER = CORNER
     this.CENTER = CENTER
+    this.CLOSE = CLOSE
     this.PI = PI
     this.TWO_PI = TWO_PI
   }
@@ -184,9 +189,41 @@ export class Sketch {
     this.ctx[style] = `rgba(${a},${b},${c},${alpha})`
   }
 
+  strokeWeight(n) {
+    this.ctx.lineWidth = n
+  }
+
   random(min, max) {
     return (Math.random() * ((max || 0) - min)) + min
   }
+
+  delay() {
+    throw new Error('Never use delay!')
+  }
+
+  // Shape Machine (BEGIN) ------------------------------------------------//
+  beginShape() {
+    this.ctx.beginPath()
+    this._shapeStarting = true
+  }
+  vertex(x, y) {
+    if (this._shapeStarting) {
+      this._yStartShape = x
+      this._xStartShape = y
+      this._shapeStarting = false
+      this.ctx.moveTo(x, y)
+    } else {
+      this.ctx.lineTo(x, y)
+    }
+  }
+  endShape(mode) {
+    if (mode === CLOSE) {
+      this.ctx.closePath()
+    }
+    this.ctx.fill()
+    this.ctx.stroke()
+  }
+  // Shape Machine (END) --------------------------------------------------//
 }
 
 // TODO: Use this somewhere? Might need adjustments to mouse position?

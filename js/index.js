@@ -2,13 +2,22 @@ import { Sketch } from './railbike'
 const q = new Sketch()
 
 q.size(640, 360)
-let circleX = q.width / 2
-let circleY = q.height / 2
 
 q.draw = () => {
-  circleX = q.random(q.width)
-  circleY = q.random(q.height)
-  // q.background(50)
-  q.fill(255, 128)
-  q.ellipse(circleX, circleY, 24, 24)
+  q.background(51)
+  q.fill(127)
+  q.stroke(255)
+  q.strokeWeight(2)
+  q.beginShape()
+  q.vertex(100, 50)
+  q.vertex(114, 80)
+  q.vertex(147, 85)
+  q.vertex(123, 107)
+  q.vertex(129, 140)
+  q.vertex(100, 125)
+  q.vertex(71, 140)
+  q.vertex(77, 107)
+  q.vertex(53, 85)
+  q.vertex(86, 80)
+  q.endShape(q.CLOSE)
 }
