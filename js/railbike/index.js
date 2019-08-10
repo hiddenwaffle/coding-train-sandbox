@@ -16,14 +16,14 @@ export class Sketch {
     this.currentRectMode = CORNER
     this.animationFrameId = null
     // Mouse Setup --------------------------------------------------------//
-    this.canvas.addEventListener('mousemove', (event) => {
+    window.addEventListener('mousemove', (event) => {
       this.pmouseX = this.mouseX
       this.pmouseY = this.mouseY
       const rect = this.canvas.getBoundingClientRect()
       this.mouseX = event.clientX - rect.left
       this.mouseY = event.clientY - rect.top
     })
-    this.canvas.addEventListener('mousedown', () => {
+    window.addEventListener('mousedown', () => {
       if (!this._isMousePressed) {
         this._isMousePressed = true
         this._mousePressed()

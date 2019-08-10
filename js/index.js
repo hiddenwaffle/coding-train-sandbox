@@ -10,7 +10,11 @@ q.draw = () => {
 }
 
 q.mousePressed = () => {
-  q.background(50)
+  if (q.keyPressed) {
+    q.background(50)
+  } else {
+    q.background(225)
+  }
 }
 
 q.keyPressed = () => {
