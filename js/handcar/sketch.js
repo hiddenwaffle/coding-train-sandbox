@@ -9,6 +9,10 @@ const CLOSE = 'CLOSE'
 const PI = Math.PI
 const TWO_PI = Math.PI * 2
 
+function present(x) {
+  return x !== undefined && x !== null
+}
+
 function hexFrom256(n) {
   return (n % 256).toString(16).padStart(2, '0')
 }
@@ -297,8 +301,12 @@ class Sketch {
     })
   }
 
-  image(pImage, x, y) {
-    this.ctx.drawImage(pImage.element, x, y)
+  image(pImage, x, y, w, h) {
+    if (present(w) && present(h)) {
+      this.ctx.drawImage(pImage.element, x, y, w, h)
+    } else {
+      this.ctx.drawImage(pImage.element, x, y)
+    }
   }
 }
 
