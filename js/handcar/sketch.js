@@ -326,4 +326,4 @@ class Sketch {
 // canvas.style.transformOrigin = '0 0'
 // canvas.style.transform = 'scale(2)'
 
-export default Sketch
+export default Sketch = Sketch
