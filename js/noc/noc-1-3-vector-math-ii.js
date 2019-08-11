@@ -17,9 +17,12 @@ q.draw = () => {
   mouse.sub(center)
   mouse.mult(0.1)
 
-  const m = mouse.mag()
-  q.fill(255, 0, 0)
-  q.rect(0, 0, m, 20)
+  // const m = mouse.mag()
+  // q.fill(255, 0, 0)
+  // q.rect(0, 0, m, 20)
+
+  mouse.normalize()
+  mouse.mult(50)
 
   q.line(0, 0, mouse.x, mouse.y)
 }

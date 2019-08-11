@@ -19,9 +19,19 @@ class PVector {
     this.y *= s
   }
 
+  div(s) {
+    this.x /= s
+    this.y /= s
+  }
+
   mag() {
     return Math.sqrt(this.x * this.x +
                      this.y * this.y)
+  }
+
+  normalize() {
+    // 0.001 to prevent division by zero if mag is zero
+    this.div(this.mag() || 0.001)
   }
 }
 
