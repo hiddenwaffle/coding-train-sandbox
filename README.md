@@ -17,4 +17,4 @@ yarn run build
 
 ## License
 
-This repository contains multiple licenses. See LICENSE-* files and other README-*.md files for more information.
+This repository contains multiple licenses. See LICENSE files and other README.md files for more information.
