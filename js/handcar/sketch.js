@@ -1,3 +1,5 @@
+import { PImage } from './p-image'
+
 const CORNER = 'CORNER'
 const CENTER = 'CENTER'
 const VALID_RECT_MODES = [CORNER, CENTER]
@@ -283,10 +285,20 @@ class Sketch {
     return amt
   }
 
-  async loadImage() {
+  loadImage(url) {
+    return new Promise((resolve) => {
+      let element = new Image()
+      element.onload = () => { resolve(new PImage(element)) }
+      element.onerror = (e) => {
+        // Use throw instead of reject() to get a stack trace.
+        throw new Error(`Could not load ${url}`)
+      }
+      element.src = url
+    })
   }
 
-  image(img) {
+  image(pImage, x, y) {
+    this.ctx.drawImage(pImage.element, x, y)
   }
 }
 

@@ -1,16 +1,15 @@
-import { Sketch } from '/handcar'
-import violet from '/assets/violet.jpg'
+import { Sketch } from '../handcar'
+import violetUrl from '/assets/violet.jpg'
 
 const q = new Sketch()
+q.size(360, 240)
+q.stroke(255, 255, 0)
 
-async function load() {
-  q.size(600, 400)
-  return await q.loadImage(violet)
-}
-
-load().then((foo) => {
+function start(violet) {
   q.draw = () => {
     q.background(0)
-    q.image(foo, 0, 0)
+    q.image(violet, 0, 0)
   }
-})
+}
+
+q.loadImage(violetUrl).then(start)
