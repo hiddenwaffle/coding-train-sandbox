@@ -297,6 +297,12 @@ export class Sketch {
     }
     return amt
   }
+
+  async loadImage() {
+  }
+
+  image(img) {
+  }
 }
 
 // TODO: Use this somewhere? Might need adjustments to mouse position?
