@@ -249,6 +249,15 @@ export class Sketch {
     return Math.sqrt(Math.pow(x2 - x1, 2) +
                      Math.pow(y2 - y1, 2))
   }
+
+  constrain(amt, low, high) {
+    if (amt < low) {
+      return low
+    } else if (amt > high) {
+      return high
+    }
+    return amt
+  }
 }
 
 // TODO: Use this somewhere? Might need adjustments to mouse position?

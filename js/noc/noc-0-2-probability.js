@@ -1,7 +1,7 @@
 import { Sketch } from '/handcar'
 const q = new Sketch()
 
-// https://www.youtube.com/watch?v=rqecAdEGW6I
+// https://www.youtube.com/watch?v=frh0coyRmJQ
 
 class Walker {
   constructor() {
@@ -10,16 +10,19 @@ class Walker {
   }
 
   step() {
-    let choice = Math.floor(q.random(4))
-    if (choice === 0) {
+    const r = q.random(1)
+    if (r < 0.4) {
       this.x++
-    } else if (choice === 1) {
+    } else if (r < 0.6) {
       this.x--
-    } else if (choice === 2) {
+    } else if (r < 0.8) {
       this.y++
     } else {
       this.y--
     }
+
+    this.x = q.constrain(this.x, 0, q.width - 1)
+    this.y = q.constrain(this.y, 0, q.height - 1)
   }
 
   render() {
@@ -28,9 +31,9 @@ class Walker {
   }
 }
 
-q.size(800, 600)
-const w = new Walker()
+q.size(100, 100)
 q.background(255)
+const w = new Walker()
 
 q.draw = () => {
   w.step()

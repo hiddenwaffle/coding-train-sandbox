@@ -1,1 +1,1 @@
-import './noc/noc-0-1-random-walker'
+import './noc/noc-0-2-probability'
