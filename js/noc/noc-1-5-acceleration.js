@@ -5,11 +5,15 @@ class Mover {
   constructor() {
     this.location = new PVector(q.width / 2, q.height / 2)
     this.velocity = new PVector()
-    this.accleration = new PVector()
+    this.acceleration = new PVector()
   }
 
   update() {
+    this.acceleration = PVector.random2D()
+
+    this.velocity.add(this.acceleration)
     this.location.add(this.velocity)
+    this.velocity.limit(5)
   }
 
   edges() {

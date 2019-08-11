@@ -38,6 +38,20 @@ class PVector {
     // 0.001 to prevent division by zero if mag is zero
     this.div(this.mag() || 0.001)
   }
+
+  limit(s) {
+    if (this.mag() > s) {
+      this.setMag(s)
+    }
+  }
+}
+
+PVector.fromAngle = function (a) {
+  return new PVector(Math.cos(a), Math.sin(a))
+}
+
+PVector.random2D = function () {
+  return PVector.fromAngle(Math.random() * Math.PI)
 }
 
 export default PVector = PVector
