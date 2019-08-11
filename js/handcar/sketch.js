@@ -92,7 +92,9 @@ class Sketch {
       cancelAnimationFrame(this.animationFrameId)
     }
     const loop = () => {
+      this.ctx.save()
       f()
+      this.ctx.restore() // In case there were any transformations.
       this.animationFrameId = requestAnimationFrame(loop)
     }
     loop()
@@ -157,7 +159,9 @@ class Sketch {
       top = Math.floor(y - (height / 2))
       left = Math.floor(x - (width / 2))
     }
-    this.ctx.fillRect(left, top, width, height)
+    if (this._fillOn) {
+      this.ctx.fillRect(left, top, width, height)
+    }
     if (this._strokeOn) {
       this.ctx.strokeRect(left, top, width, height)
     }
@@ -166,7 +170,9 @@ class Sketch {
   ellipse(x, y, radiusW, radiusH) {
     this.ctx.beginPath()
     this.ctx.ellipse(x, y, radiusW / 2, radiusH / 2, 0, 0, TWO_PI)
-    this.ctx.fill()
+    if (this._fillOn) {
+      this.ctx.fill()
+    }
     if (this._strokeOn) {
       this.ctx.stroke()
     }
@@ -190,9 +196,6 @@ class Sketch {
   color(a, b, c) {
     // TODO: Handle HSB
     return `#${hexFrom256(a)}${hexFrom256(b)}${hexFrom256(c)}`
-    // return `#${(a % 256).toString(16).padStart(2, '0')
-    //             b % 256 <<  8 |
-    //             c % 256).toString(16)}`
   }
 
   stroke(...args) {
@@ -234,6 +237,10 @@ class Sketch {
     this.ctx.lineWidth = n
   }
 
+  noFill() {
+    this._fillOn = false
+  }
+
   random(min, max) {
     return (Math.random() * ((max || 0) - min)) + min
   }
@@ -269,7 +276,9 @@ class Sketch {
     if (mode === CLOSE) {
       this.ctx.closePath()
     }
-    this.ctx.fill()
+    if (this._fillOn) {
+      this.ctx.fill()
+    }
     if (this._strokeOn) {
       this.ctx.stroke()
     }
@@ -319,6 +328,10 @@ class Sketch {
     const targetRangeSize = max2 - min2
     const targetOffset = targetRangeSize * pctInRange
     return min2 + targetOffset
+  }
+
+  translate(x, y) {
+    this.ctx.translate(x, y)
   }
 }
 
