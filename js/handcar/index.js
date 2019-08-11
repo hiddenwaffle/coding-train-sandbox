@@ -21,6 +21,11 @@ export class Sketch {
     } else {
       document.body.appendChild(this.canvas)
     }
+    // Internal -----------------------------------------------------------//
+    this._nextNextGaussian = null
+    this._haveNextNextGaussian = false
+    this._strokeOn = true
+    this._fillOn = true
     // Simple Defaults ----------------------------------------------------//
     this.currentRectMode = CORNER
     this.animationFrameId = null
@@ -125,7 +130,9 @@ export class Sketch {
     this.ctx.beginPath()
     this.ctx.moveTo(x1, y1)
     this.ctx.lineTo(x2, y2)
-    this.ctx.stroke()
+    if (this._strokeOn) {
+      this.ctx.stroke()
+    }
   }
 
   rectMode(mode) {
@@ -146,14 +153,18 @@ export class Sketch {
       left = Math.floor(x - (width / 2))
     }
     this.ctx.fillRect(left, top, width, height)
-    this.ctx.strokeRect(left, top, width, height)
+    if (this._strokeOn) {
+      this.ctx.strokeRect(left, top, width, height)
+    }
   }
 
   ellipse(x, y, radiusW, radiusH) {
     this.ctx.beginPath()
     this.ctx.ellipse(x, y, radiusW / 2, radiusH / 2, 0, 0, TWO_PI)
     this.ctx.fill()
-    this.ctx.stroke()
+    if (this._strokeOn) {
+      this.ctx.stroke()
+    }
   }
 
   point(x, y) {
@@ -180,6 +191,7 @@ export class Sketch {
   }
 
   stroke(...args) {
+    this._strokeOn = true
     this[`_setStyle${arguments.length}`]('strokeStyle', ...args)
   }
 
@@ -209,12 +221,37 @@ export class Sketch {
     this.ctx[style] = `rgba(${a},${b},${c},${alpha})`
   }
 
+  noStroke() {
+    this._strokeOn = false
+  }
+
   strokeWeight(n) {
     this.ctx.lineWidth = n
   }
 
   random(min, max) {
     return (Math.random() * ((max || 0) - min)) + min
+  }
+
+  randomGaussian() {
+    // Based on Java's Random.nextGaussian()
+    // mean 0.0
+    // standard deviation 1.0
+    if (this._haveNextNextGaussian) {
+      this._haveNextNextGaussian = false
+      return this._nextNextGaussian
+    } else {
+      let v1, v2, s
+      do {
+        v1 = 2 * Math.random() - 1 // between -1.0 and 1.0
+        v2 = 2 * Math.random() - 1 // between -1.0 and 1.0
+        s = v1 * v1 + v2 * v2
+      } while (s >= 1 || s == 0)
+      const multiplier = Math.sqrt(-2 * Math.log(s) / s)
+      this._nextNextGaussian = v2 * multiplier
+      this._haveNextNextGaussian = true
+      return v1 * multiplier
+    }
   }
 
   delay() {
@@ -241,7 +278,9 @@ export class Sketch {
       this.ctx.closePath()
     }
     this.ctx.fill()
-    this.ctx.stroke()
+    if (this._strokeOn) {
+      this.ctx.stroke()
+    }
   }
   // Shape Machine (END) --------------------------------------------------//
 
