@@ -156,6 +156,14 @@ export class Sketch {
     this.ctx.stroke()
   }
 
+  point(x, y) {
+    // Processing uses stroke color instead of fill
+    const tmp = this.ctx.fillStyle
+    this.ctx.fillStyle = this.ctx.strokeStyle
+    this.ctx.fillRect(x, y, 1, 1)
+    this.ctx.fillStyle = tmp
+  }
+
   background(...args) {
     this.ctx.save()
     this.fill(...args)
