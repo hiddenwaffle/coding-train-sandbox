@@ -204,6 +204,7 @@ class Sketch {
   }
 
   fill(...args) {
+    this._fillOn = true
     this[`_setStyle${arguments.length}`]('fillStyle', ...args)
   }
 

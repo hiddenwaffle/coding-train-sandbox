@@ -15,7 +15,11 @@ q.draw = () => {
   const mouse = new PVector(q.mouseX, q.mouseY)
   const center = new PVector(q.width / 2, q.height / 2)
   mouse.sub(center)
-  mouse.mult(1.5)
+  mouse.mult(0.1)
+
+  const m = mouse.mag()
+  q.fill(255, 0, 0)
+  q.rect(0, 0, m, 20)
 
   q.line(0, 0, mouse.x, mouse.y)
 }
