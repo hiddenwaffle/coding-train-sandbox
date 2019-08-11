@@ -7,7 +7,6 @@ q.draw = () => {
   q.background(51)
   q.fill(127)
   let c = q.color(0, 255, 192)
-  console.log('c', c)
   q.stroke(c)
   q.strokeWeight(2)
   q.beginShape()
