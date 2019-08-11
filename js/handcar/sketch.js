@@ -1,5 +1,3 @@
-import { PImage } from './p-image'
-
 const CORNER = 'CORNER'
 const CENTER = 'CENTER'
 const VALID_RECT_MODES = [CORNER, CENTER]
@@ -30,8 +28,6 @@ class Sketch {
     // Internal -----------------------------------------------------------//
     this._strokeOn = true
     this._fillOn = true
-    this._imageTint = false
-    this._imageTintColor = null
     // Simple Defaults ----------------------------------------------------//
     this.currentRectMode = CORNER
     this.animationFrameId = null
@@ -289,52 +285,6 @@ class Sketch {
       return high
     }
     return amt
-  }
-
-  loadImage(url) {
-    return new Promise((resolve) => {
-      let element = new Image()
-      element.onload = () => { resolve(new PImage(element)) }
-      element.onerror = (e) => {
-        // Use throw instead of reject() to get a stack trace.
-        throw new Error(`Could not load ${url}`)
-      }
-      element.src = url
-    })
-  }
-
-  image(pImage, x, y, w, h) {
-    if (present(w) && present(h)) {
-      this.ctx.drawImage(pImage.element, x, y, w, h)
-    } else {
-      this.ctx.drawImage(pImage.element, x, y)
-    }
-    if (this._imageTint) {
-      // Tint based on: https://stackoverflow.com/a/44558286
-      // because it looks most like Processing's.
-      this.ctx.save()
-      this.fill(...this._imageTintColor)
-      this.ctx.globalCompositeOperation = 'multiply'
-      if (present(w) && present(h)) {
-        this.ctx.fillRect(x, y, w, h)
-      } else {
-        this.ctx.fillRect(x, y, pImage.element.width, pImage.element.height)
-      }
-      this.ctx.restore()
-    }
-  }
-
-  /**
-   * Similar to Processing's tint(), but alpha behavior is
-   * undefined.
-   */
-  tint(...args) {
-    this._imageTint = true
-    this._imageTintColor = args
-  }
-
-  noTint() {
-    this._imageTint = false
   }
 }
 
