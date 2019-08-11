@@ -29,6 +29,11 @@ class PVector {
                      this.y * this.y)
   }
 
+  setMag(s) {
+    this.normalize()
+    this.mult(s)
+  }
+
   normalize() {
     // 0.001 to prevent division by zero if mag is zero
     this.div(this.mag() || 0.001)

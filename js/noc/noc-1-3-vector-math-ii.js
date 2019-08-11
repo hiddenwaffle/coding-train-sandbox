@@ -21,8 +21,10 @@ q.draw = () => {
   // q.fill(255, 0, 0)
   // q.rect(0, 0, m, 20)
 
-  mouse.normalize()
-  mouse.mult(50)
+  // mouse.normalize()
+  // mouse.mult(50)
+
+  mouse.setMag(50)
 
   q.line(0, 0, mouse.x, mouse.y)
 }
