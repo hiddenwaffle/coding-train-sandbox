@@ -7,6 +7,10 @@ const CLOSE = 'CLOSE'
 const PI = Math.PI
 const TWO_PI = Math.PI * 2
 
+function hexFrom256(n) {
+  return (n % 256).toString(16).padStart(2, '0')
+}
+
 export class Sketch {
   constructor(parent) {
     // Canvas and Context Setup -------------------------------------------//
@@ -157,6 +161,14 @@ export class Sketch {
     this.fill(...args)
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height)
     this.ctx.restore()
+  }
+
+  color(a, b, c) {
+    // TODO: Handle HSB
+    return `#${hexFrom256(a)}${hexFrom256(b)}${hexFrom256(c)}`
+    // return `#${(a % 256).toString(16).padStart(2, '0')
+    //             b % 256 <<  8 |
+    //             c % 256).toString(16)}`
   }
 
   stroke(...args) {
