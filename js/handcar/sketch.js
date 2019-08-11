@@ -1,3 +1,5 @@
+import { openSimplexNoise } from './noise'
+
 const CORNER = 'CORNER'
 const CENTER = 'CENTER'
 const VALID_RECT_MODES = [CORNER, CENTER]
@@ -28,6 +30,7 @@ class Sketch {
     // Internal -----------------------------------------------------------//
     this._strokeOn = true
     this._fillOn = true
+    this._osnApi = openSimplexNoise(Date.now())
     // Simple Defaults ----------------------------------------------------//
     this.currentRectMode = CORNER
     this.animationFrameId = null
@@ -141,7 +144,7 @@ class Sketch {
     if (VALID_RECT_MODES.includes(mode)) {
       this.currentRectMode = mode
     } else {
-      throw new Error(`Invalid mode: ${mode}`)
+      throw new Error(new Error(`Invalid mode: ${mode}`))
     }
   }
 
@@ -285,6 +288,37 @@ class Sketch {
       return high
     }
     return amt
+  }
+
+  noise(a, b, c, d) {
+    let raw
+    switch (arguments.length) {
+      case 1:
+        raw = this._osnApi.noise2D(a, a)
+        break
+      case 2:
+        raw = this._osnApi.noise2D(a, b)
+        break
+      case 3:
+        raw = this._osnApi.noise3D(a, b, c)
+        break
+      case 4:
+        raw = this._osaApi.noise4D(a, b, c, d)
+        break
+      default:
+        throw new Error(`Noise parameters must be between 1 and 4 dimensions`)
+    }
+    // Center and squish: Processing values are between 0 and 1.
+    return (raw + 1) / 2
+  }
+
+  map(x, min1, max1, min2, max2) {
+    const rangeSize = max1 - min1
+    const offset = x - min1
+    const pctInRange = offset / rangeSize
+    const targetRangeSize = max2 - min2
+    const targetOffset = targetRangeSize * pctInRange
+    return min2 + targetOffset
   }
 }
 

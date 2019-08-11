@@ -1,7 +1,9 @@
 # Handcart
 
-## License
+## Licenses
 
-From a discussion of a similar Processing port, p5.js, the handcart directory of this repository is under the LGPL-2.1 license, while the rest of the repository is under MIT.
+* noise.js is third-party code and is under Unlicense license.
+    * https://github.com/blindman67/SimplexNoiseJS
 
-* https://github.com/processing/p5.js/issues/293
+* From a discussion of a similar Processing port, p5.js, most of the handcart directory of this repository is under the LGPL-2.1 license.
+    * https://github.com/processing/p5.js/issues/293

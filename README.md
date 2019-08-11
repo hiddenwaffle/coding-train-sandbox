@@ -15,6 +15,6 @@ yarn run build
 
 * violet.jpg and its derivatives are from https://www.goodfreephotos.com/plants/violet-flower.jpg.php
 
-## License
+## Licenses
 
 This repository contains multiple licenses. See LICENSE files and other README.md files for more information.
