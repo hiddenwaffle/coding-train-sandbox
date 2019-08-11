@@ -12,3 +12,5 @@ yarn run build
 ## Notes
 
 * In the package.json, the browserlist configuration must allow async/await: https://github.com/parcel-bundler/parcel/issues/916#issuecomment-419154118
+
+* violet.jpg and its derivatives are from https://www.goodfreephotos.com/plants/violet-flower.jpg.php
