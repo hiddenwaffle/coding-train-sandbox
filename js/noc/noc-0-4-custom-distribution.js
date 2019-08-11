@@ -10,7 +10,7 @@ const norms = new Array(q.width).fill(0)
 q.draw = () => {
   q.background(100)
 
-  for (let i = 0; i < 25; i++) { // Make it go faster
+  for (let i = 0; i < 125; i++) { // Make it go faster
     const n = montecarlo()
     const index = Math.floor(n * q.width)
     vals[index]++
@@ -22,13 +22,13 @@ q.draw = () => {
   let maxy = 0
 
   for (let x = 0; x < vals.length; x++) {
-    q.line(x, q.height, x, q.height - norms[x])
+    q.line(x, q.height, x, Math.floor(q.height - norms[x]))
     if (vals[x] > q.height) normalization = true
     if (vals[x] > maxy) maxy = vals[x]
   }
 
   for (let x = 0; x < vals.length; x++) {
-    if (normalization) norms[x] = (vals[x] / maxy)
+    if (normalization) norms[x] = (vals[x] / maxy) * q.height
     else norms[x] = vals[x]
   }
 }
