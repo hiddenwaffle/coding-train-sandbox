@@ -37,7 +37,6 @@ class Sketch {
     this._currentRectMode = CORNER
     this._currentEllipseMode = CENTER
     this.animationFrameId = null
-    this.print = console.log // for completion's sake
     // Mouse Setup --------------------------------------------------------//
     window.addEventListener('mousemove', (event) => {
       this.pmouseX = this.mouseX
@@ -363,6 +362,10 @@ class Sketch {
 
   translate(x, y) {
     this.ctx.translate(x, y)
+  }
+
+  rotate(a) {
+    this.ctx.rotate(a)
   }
 }
 

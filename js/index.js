@@ -1,1 +1,1 @@
-import './noc/noc-2-6-gravitational-attraction'
+import './noc/noc-3-3-simple-harmonic-motion'
