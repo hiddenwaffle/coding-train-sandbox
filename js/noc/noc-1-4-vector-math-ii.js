@@ -1,6 +1,8 @@
 import { Sketch, PVector } from '/handcar'
 const q = new Sketch()
 
+// https://www.youtube.com/watch?v=uHusbFmq-4I
+
 q.size(500, 300)
 
 q.draw = () => {

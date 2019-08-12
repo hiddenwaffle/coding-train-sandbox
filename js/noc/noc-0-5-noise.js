@@ -1,6 +1,8 @@
 import { Sketch } from '/handcar'
 const q = new Sketch()
 
+// https://www.youtube.com/watch?v=8ZEMLCnn8v0
+
 q.size(600, 400)
 let t = 0
 

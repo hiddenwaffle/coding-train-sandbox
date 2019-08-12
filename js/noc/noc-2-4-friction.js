@@ -1,6 +1,8 @@
 import { Sketch, PVector } from '../handcar'
 const q = new Sketch()
 
+// https://www.youtube.com/watch?v=HZcic7lEcmU
+
 q.size(640, 360)
 
 class Mover {
