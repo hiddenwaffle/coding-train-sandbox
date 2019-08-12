@@ -54,6 +54,12 @@ class PVector {
   }
 }
 
+PVector.sub = function (v1, v2) {
+  const copy = v1.copy()
+  copy.sub(v2)
+  return copy
+}
+
 PVector.div = function (v, s) {
   const copy = v.copy()
   copy.div(s)

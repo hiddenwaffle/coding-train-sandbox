@@ -2,7 +2,9 @@ import { openSimplexNoise } from './noise'
 
 const CORNER = 'CORNER'
 const CENTER = 'CENTER'
-const VALID_RECT_MODES = [CORNER, CENTER]
+const _VALID_RECT_MODES = [CORNER, CENTER]
+const RADIUS = 'RADIUS'
+const _VALID_ELLIPSE_MODES = [CENTER, RADIUS]
 
 const CLOSE = 'CLOSE'
 
@@ -32,7 +34,8 @@ class Sketch {
     this._fillOn = true
     this._osnApi = openSimplexNoise(Date.now())
     // Simple Defaults ----------------------------------------------------//
-    this.currentRectMode = CORNER
+    this._currentRectMode = CORNER
+    this._currentEllipseMode = CENTER
     this.animationFrameId = null
     this.print = console.log // for completion's sake
     // Mouse Setup --------------------------------------------------------//
@@ -51,6 +54,7 @@ class Sketch {
     })
     window.addEventListener('mouseup', () => {
       this._isMousePressed = false
+      this._mouseReleased()
     })
     this.pmouseX = 1
     this.pmouseY = 1
@@ -58,6 +62,7 @@ class Sketch {
     this.mouseY = 1
     this._mousePressed = () => { } // no-op
     this._isMousePressed = false
+    this._mouseReleased = () => { } // no-op
     // Keyboard Setup --------------------------------------------------------//
     window.addEventListener('keydown', () => {
       if (!this._isKeyPressed) {
@@ -74,6 +79,7 @@ class Sketch {
     // These are in the same order as the top of this file.
     this.CORNER = CORNER
     this.CENTER = CENTER
+    this.RADIUS = RADIUS
     this.CLOSE = CLOSE
     this.PI = PI
     this.TWO_PI = TWO_PI
@@ -106,6 +112,10 @@ class Sketch {
 
   set mousePressed(f) {
     this._mousePressed = f // accepts a function... trickery here
+  }
+
+  set mouseReleased(f) {
+    this._mouseReleased = f
   }
 
   get keyPressed() {
@@ -143,8 +153,8 @@ class Sketch {
   }
 
   rectMode(mode) {
-    if (VALID_RECT_MODES.includes(mode)) {
-      this.currentRectMode = mode
+    if (_VALID_RECT_MODES.includes(mode)) {
+      this._currentRectMode = mode
     } else {
       throw new Error(new Error(`Invalid mode: ${mode}`))
     }
@@ -152,10 +162,10 @@ class Sketch {
 
   rect(x, y, width, height) {
     let top, left
-    if (this.currentRectMode === CORNER) {
+    if (this._currentRectMode === CORNER) {
       top = y
       left = x
-    } else if (this.currentRectMode === CENTER) {
+    } else if (this._currentRectMode === CENTER) {
       top = Math.floor(y - (height / 2))
       left = Math.floor(x - (width / 2))
     }
@@ -167,9 +177,29 @@ class Sketch {
     }
   }
 
-  ellipse(x, y, radiusW, radiusH) {
+  ellipseMode(mode) {
+    if (_VALID_ELLIPSE_MODES.includes(mode)) {
+      this._currentEllipseMode = mode
+    } else {
+      throw new Error(new Error(`Invalid mode: ${mode}`))
+    }
+  }
+
+  ellipse(px, py, prw, prh) {
+    let x, y, rw, rh
+    if (this._currentEllipseMode === CENTER) {
+      x = px
+      y = py
+      rw = prw / 2
+      rh = prh / 2
+    } else if (this._currentEllipseMode === RADIUS) {
+      x = px
+      y = py
+      rw = prw
+      rh = prh
+    }
     this.ctx.beginPath()
-    this.ctx.ellipse(x, y, radiusW / 2, radiusH / 2, 0, 0, TWO_PI)
+    this.ctx.ellipse(x, y, rw, rh, 0, 0, TWO_PI)
     if (this._fillOn) {
       this.ctx.fill()
     }
