@@ -8,7 +8,6 @@ const _VALID_ELLIPSE_MODES = [CENTER, RADIUS]
 
 const CLOSE = 'CLOSE'
 
-const PI = Math.PI
 const TWO_PI = Math.PI * 2
 
 function present(x) {
@@ -30,13 +29,14 @@ class Sketch {
       document.body.appendChild(this.canvas)
     }
     // Internal -----------------------------------------------------------//
-    this._strokeOn = true
-    this._fillOn = true
     this._osnApi = openSimplexNoise(Date.now())
+    this._frameCount = 0
     // Simple Defaults ----------------------------------------------------//
+    this.stroke(0)
+    this.fill(255)
     this._currentRectMode = CORNER
     this._currentEllipseMode = CENTER
-    this.animationFrameId = null
+    this._animationFrameId = null
     // Mouse Setup --------------------------------------------------------//
     window.addEventListener('mousemove', (event) => {
       this.pmouseX = this.mouseX
@@ -80,7 +80,6 @@ class Sketch {
     this.CENTER = CENTER
     this.RADIUS = RADIUS
     this.CLOSE = CLOSE
-    this.PI = PI
     this.TWO_PI = TWO_PI
   }
 
@@ -93,14 +92,15 @@ class Sketch {
    * Only one draw loop at a time.
    */
   set draw(f) {
-    if (this.animationFrameId !== null) {
-      cancelAnimationFrame(this.animationFrameId)
+    if (this._animationFrameId !== null) {
+      cancelAnimationFrame(this._animationFrameId)
     }
     const loop = () => {
       this.ctx.save()
       f()
+      this._frameCount++
       this.ctx.restore() // In case there were any transformations.
-      this.animationFrameId = requestAnimationFrame(loop)
+      this._animationFrameId = requestAnimationFrame(loop)
     }
     loop()
   }
@@ -133,13 +133,32 @@ class Sketch {
     return this.canvas.height
   }
 
+  get frameCount() {
+    return this._frameCount
+  }
+
   /**
-   * Colors are set like Processing defaults.
+   * Note that changing the width and height causes
+   * its state to be reset, so it is saved.
+   * https://stackoverflow.com/a/55343476
    */
   size(width, height) {
+    const props = ['strokeStyle', 'fillStyle', 'globalAlpha', 'lineWidth',
+    'lineCap', 'lineJoin', 'miterLimit', 'lineDashOffset', 'shadowOffsetX',
+    'shadowOffsetY', 'shadowBlur', 'shadowColor', 'globalCompositeOperation',
+    'font', 'textAlign', 'textBaseline', 'direction', 'imageSmoothingEnabled']
+    const state = { }
+    for (let prop of props) {
+      state[prop] = this.ctx[prop]
+    }
+    //
     this.canvas.width = width
     this.canvas.height = height
-    this.background(192, 192, 192)
+    this.background(192, 192, 192) // Like Processing's default.
+    //
+    for (let prop in state) {
+      this.ctx[prop] = state[prop]
+    }
   }
 
   line(x1, y1, x2, y2) {

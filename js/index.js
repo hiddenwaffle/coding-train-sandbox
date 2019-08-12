@@ -1,1 +1,1 @@
-import './noc/noc-3-3-simple-harmonic-motion'
+import './noc/noc-3-4-pendulum'
