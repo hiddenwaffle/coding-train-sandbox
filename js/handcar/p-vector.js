@@ -25,8 +25,12 @@ class PVector {
   }
 
   mag() {
-    return Math.sqrt(this.x * this.x +
-                     this.y * this.y)
+    return Math.sqrt(this.magSq())
+  }
+
+  magSq() {
+    return this.x * this.x +
+           this.y * this.y
   }
 
   setMag(s) {

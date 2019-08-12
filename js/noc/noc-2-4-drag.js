@@ -5,7 +5,7 @@ q.size(640, 360)
 
 class Mover {
   constructor() {
-    this.location = new PVector(q.random(q.width), q.height / 2)
+    this.location = new PVector(q.random(q.width), 0)
     this.velocity = new PVector()
     this.acceleration = new PVector()
     this.mass = q.random(0.5, 4)
@@ -54,7 +54,7 @@ for (let i = 0; i < 5; i++) {
   movers[i] = new Mover()
 }
 
-const wind = new PVector(0.2, 0)
+// const wind = new PVector(0.2, 0)
 
 q.draw = () => {
   q.background(255)
@@ -63,9 +63,15 @@ q.draw = () => {
     const gravity = new PVector(0, 0.3)
     gravity.mult(m.mass)
     m.applyForce(gravity)
+    // m.applyForce(wind)
 
     if (q.mousePressed) {
-      m.applyForce(wind)
+      const drag = m.velocity.copy()
+      drag.normalize()
+      const c = -0.03
+      const speedSq = m.velocity.magSq()
+      drag.mult(c * speedSq)
+      m.applyForce(drag)
     }
 
     m.update()

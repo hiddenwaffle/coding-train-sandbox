@@ -5,7 +5,7 @@ q.size(640, 360)
 
 class Mover {
   constructor() {
-    this.location = new PVector(q.random(q.width), q.height / 2)
+    this.location = new PVector(q.random(q.width), 0)
     this.velocity = new PVector()
     this.acceleration = new PVector()
     this.mass = q.random(0.5, 4)
@@ -44,8 +44,40 @@ class Mover {
   display() {
     q.stroke(0)
     q.strokeWeight(2)
-    q.fill(127, 100)
+    q.fill(225, 100)
     q.ellipse(this.location.x, this.location.y, this.mass * 20, this.mass * 20)
+  }
+}
+
+class Liquid {
+  constructor(x, y, w, h, c) {
+    this.x = x
+    this.y = y
+    this.w = w
+    this.h = h
+    this.c = c
+  }
+
+  contains(m) {
+    return m.location.x > this.x &&
+           m.location.x < this.x + this.w &&
+           m.location.y > this.y &&
+           m.location.y < this.y + this.h
+  }
+
+  drag(m) {
+    const speedSq = m.velocity.magSq()
+    const dragMagnitude = this.c * speedSq
+    const dragForce = m.velocity.copy()
+    dragForce.mult(-1)
+    dragForce.normalize()
+    dragForce.mult(dragMagnitude)
+    return dragForce
+  }
+
+  display() {
+    q.fill(128)
+    q.rect(this.x, this.y, this.w, this.h)
   }
 }
 
@@ -54,20 +86,18 @@ for (let i = 0; i < 5; i++) {
   movers[i] = new Mover()
 }
 
-const wind = new PVector(0.2, 0)
+const liquid = new Liquid(0, q.height / 2, q.width, q.height / 2, 0.1)
 
 q.draw = () => {
   q.background(255)
-
+  liquid.display()
   for (let m of movers) {
-    const gravity = new PVector(0, 0.3)
-    gravity.mult(m.mass)
-    m.applyForce(gravity)
-
-    if (q.mousePressed) {
-      m.applyForce(wind)
+    if (liquid.contains(m)) {
+      const dragForce = liquid.drag(m)
+      m.applyForce(dragForce)
     }
-
+    const gravity = new PVector(0, 0.1 * m.mass)
+    m.applyForce(gravity)
     m.update()
     m.edges()
     m.display()
