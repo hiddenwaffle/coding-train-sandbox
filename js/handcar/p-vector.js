@@ -44,6 +44,16 @@ class PVector {
       this.setMag(s)
     }
   }
+
+  copy() {
+    return new PVector(this.x, this.y)
+  }
+}
+
+PVector.div = function (v, s) {
+  const copy = v.copy()
+  copy.div(s)
+  return copy
 }
 
 PVector.fromAngle = function (a) {
