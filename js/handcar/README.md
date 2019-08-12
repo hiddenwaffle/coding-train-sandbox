@@ -1,5 +1,10 @@
 # Handcart
 
+* Inspired by the Nature of Code book and the sketch-related videos on the Coding Train YouTube channel.
+
+* API design based on Processing, p5.js, and Quil.
+    * Intended to be a light, 2D-only library subset of these frameworks.
+
 ## Licenses
 
 * noise.js is third-party code and is under Unlicense license.

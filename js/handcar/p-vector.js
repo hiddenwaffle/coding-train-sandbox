@@ -71,7 +71,7 @@ PVector.fromAngle = function (a) {
 }
 
 PVector.random2D = function () {
-  return PVector.fromAngle(Math.random() * Math.PI)
+  return PVector.fromAngle(Math.random() * 2 * Math.PI)
 }
 
 export default PVector = PVector

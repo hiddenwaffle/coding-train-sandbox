@@ -39,19 +39,17 @@ class Sketch {
     this._animationFrameId = null
     // Mouse Setup --------------------------------------------------------//
     window.addEventListener('mousemove', (event) => {
-      this.pmouseX = this.mouseX
-      this.pmouseY = this.mouseY
-      const rect = this.canvas.getBoundingClientRect()
-      this.mouseX = event.clientX - rect.left
-      this.mouseY = event.clientY - rect.top
+      this._captureMousePosition()
     })
     window.addEventListener('mousedown', () => {
+      this._captureMousePosition()
       if (!this._isMousePressed) {
         this._isMousePressed = true
         this._mousePressed()
       }
     })
     window.addEventListener('mouseup', () => {
+      this._captureMousePosition()
       this._isMousePressed = false
       this._mouseReleased()
     })
@@ -290,8 +288,16 @@ class Sketch {
     this._fillOn = false
   }
 
-  random(min, max) {
-    return (Math.random() * ((max || 0) - min)) + min
+  random(a, b) {
+    let min, max
+    if (present(b)) {
+      min = a
+      max = b
+    } else {
+      min = 0
+      max = a
+    }
+    return Math.random() * (max - min) + min
   }
 
   randomGaussian() {
@@ -385,6 +391,14 @@ class Sketch {
 
   rotate(a) {
     this.ctx.rotate(a)
+  }
+
+  _captureMousePosition() {
+    this.pmouseX = this.mouseX
+    this.pmouseY = this.mouseY
+    const rect = this.canvas.getBoundingClientRect()
+    this.mouseX = event.clientX - rect.left
+    this.mouseY = event.clientY - rect.top
   }
 }
 
