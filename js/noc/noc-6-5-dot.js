@@ -3,7 +3,7 @@ const q = new Sketch()
 
 // https://www.youtube.com/watch?v=ofwmvH95Hdo
 
-q.size(640, 360)
+q.size(600, 360)
 
 q.draw = () => {
   q.background(255)

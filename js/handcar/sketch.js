@@ -66,7 +66,8 @@ class Sketch {
     this._isMousePressed = false
     this._mouseReleased = () => { } // no-op
     // Keyboard Setup --------------------------------------------------------//
-    window.addEventListener('keydown', () => {
+    window.addEventListener('keydown', (e) => {
+      this.key = String.fromCharCode(e.keyCode)
       if (!this._isKeyPressed) {
         this._isKeyPressed = true
         this._keyPressed()
@@ -77,6 +78,7 @@ class Sketch {
     })
     this._keyPressed = () => { } // no-op
     this._isKeyPressed = false
+    this.key = ''
     // Public Constants ---------------------------------------------------//
     // These are in the same order as the top of this file.
     this.CORNER = CORNER
