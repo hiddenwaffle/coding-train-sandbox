@@ -8,6 +8,10 @@ const _VALID_ELLIPSE_MODES = [CENTER, RADIUS]
 
 const CLOSE = 'CLOSE'
 
+const DEFAULT = 'DEFAULT'
+const TRIANGLES = 'TRIANGLES'
+const _VALID_SHAPE_MODES = [DEFAULT, TRIANGLES]
+
 const TWO_PI = Math.PI * 2
 
 function present(x) {
@@ -28,14 +32,15 @@ class Sketch {
     } else {
       document.body.appendChild(this.canvas)
     }
-    // Internal -----------------------------------------------------------//
+    // Internal Defaults --------------------------------------------------//
     this._osnApi = openSimplexNoise(Date.now())
     this._frameCount = 0
-    // Simple Defaults ----------------------------------------------------//
     this.stroke(0)
     this.fill(255)
     this._currentRectMode = CORNER
     this._currentEllipseMode = CENTER
+    this._currentShapeMode = DEFAULT
+    this._currentShapeVertexCount = 0
     this._animationFrameId = null
     // Mouse Setup --------------------------------------------------------//
     window.addEventListener('mousemove', (event) => {
@@ -78,6 +83,7 @@ class Sketch {
     this.CENTER = CENTER
     this.RADIUS = RADIUS
     this.CLOSE = CLOSE
+    this.TRIANGLES = TRIANGLES
     this.TWO_PI = TWO_PI
   }
 
@@ -313,10 +319,17 @@ class Sketch {
   }
 
   // Shape Machine (BEGIN) ------------------------------------------------//
-  beginShape() {
-    this.ctx.beginPath()
-    this._shapeStarting = true
+  beginShape(mode=DEFAULT) {
+    if (_VALID_SHAPE_MODES.includes(mode)) {
+      this.ctx.beginPath()
+      this._shapeStarting = true
+      this._currentShapeMode = mode
+      this._currentShapeVertexCount = 0
+    } else {
+      throw new Error(new Error(`Invalid mode: ${mode}`))
+    }
   }
+
   vertex(x, y) {
     if (this._shapeStarting) {
       this._yStartShape = x
@@ -326,7 +339,13 @@ class Sketch {
     } else {
       this.ctx.lineTo(x, y)
     }
+    this._currentShapeVertexCount++
+    if (this._currentShapeMode === TRIANGLES &&
+        this._currentShapeVertexCount === 3) {
+      this.endShape(CLOSE)
+    }
   }
+
   endShape(mode) {
     if (mode === CLOSE) {
       this.ctx.closePath()
@@ -337,6 +356,7 @@ class Sketch {
     if (this._strokeOn) {
       this.ctx.stroke()
     }
+    this._currentShapeMode = 0
   }
   // Shape Machine (END) --------------------------------------------------//
 
@@ -393,12 +413,24 @@ class Sketch {
     this.ctx.rotate(a)
   }
 
+  pushMatrix() {
+    this.ctx.save()
+  }
+
+  popMatrix() {
+    this.ctx.restore()
+  }
+
   _captureMousePosition() {
     this.pmouseX = this.mouseX
     this.pmouseY = this.mouseY
     const rect = this.canvas.getBoundingClientRect()
     this.mouseX = event.clientX - rect.left
     this.mouseY = event.clientY - rect.top
+  }
+
+  radians(degrees) {
+    return degrees * (Math.PI / 180)
   }
 }
 
