@@ -1,1 +1,1 @@
-import './noc/noc-7-2-wolfram-ca'
+import './noc/noc-8-3-koch-curve'

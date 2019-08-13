@@ -60,6 +60,12 @@ class PVector {
   dot(other) {
     return this.x * other.x + this.y * other.y
   }
+
+  rotate(a) {
+    const xTemp = this.x
+    this.x = this.x * Math.cos(a) - this.y * Math.sin(a)
+    this.y = xTemp * Math.sin(a) + this.y * Math.cos(a)
+  }
 }
 
 PVector.add = function (v1, v2) {
