@@ -133,5 +133,4 @@ q.draw = () => {
     v.run()
   }
   q.fill(0)
-  // TODO: Text
 }

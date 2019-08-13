@@ -56,6 +56,16 @@ class PVector {
   heading2D() {
     return Math.atan2(this.y, this.x)
   }
+
+  dot(other) {
+    return this.x * other.x + this.y * other.y
+  }
+}
+
+PVector.add = function (v1, v2) {
+  const copy = v1.copy()
+  copy.add(v2)
+  return copy
 }
 
 PVector.sub = function (v1, v2) {
