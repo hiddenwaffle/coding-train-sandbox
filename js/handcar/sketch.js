@@ -41,7 +41,9 @@ class Sketch {
     this._currentEllipseMode = CENTER
     this._currentShapeMode = DEFAULT
     this._currentShapeVertexCount = 0
+    this._drawf = () => { } // no-op
     this._animationFrameId = null
+    this._noLoop = true
     // Mouse Setup --------------------------------------------------------//
     window.addEventListener('mousemove', (event) => {
       this._captureMousePosition()
@@ -95,20 +97,36 @@ class Sketch {
 
   /**
    * Loop isn't started until draw is set here.
-   * Only one draw loop at a time.
+   * Draw only one loop at a time.
    */
-  set draw(f) {
+  set draw(fn) {
     if (this._animationFrameId !== null) {
       cancelAnimationFrame(this._animationFrameId)
     }
+    this._drawf = fn
+    this._noLoop = false
     const loop = () => {
-      this.ctx.save()
-      f()
-      this._frameCount++
-      this.ctx.restore() // In case there were any transformations.
       this._animationFrameId = requestAnimationFrame(loop)
+      if (!this._noLoop) {
+        this._drawSingleFrame()
+      }
     }
     loop()
+  }
+
+  noLoop() {
+    this._noLoop = true
+  }
+
+  redraw() {
+    this._drawSingleFrame()
+  }
+
+  _drawSingleFrame() {
+    this.ctx.save()
+    this._drawf()
+    this._frameCount++
+    this.ctx.restore() // In case there were any transformations.
   }
 
   get mousePressed() {
