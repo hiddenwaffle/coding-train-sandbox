@@ -1,1 +1,1 @@
-import './noc/noc-6-6-path-following'
+import './noc/noc-6-8-separation-and-seek'
