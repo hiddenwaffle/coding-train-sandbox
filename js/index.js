@@ -1,1 +1,1 @@
-import './noc/noc-6-8-separation-and-seek'
+import './noc/noc-7-2-wolfram-ca'
