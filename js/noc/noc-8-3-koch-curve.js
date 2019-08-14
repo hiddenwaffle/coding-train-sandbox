@@ -62,8 +62,8 @@ q.draw = () => {
   }
 }
 
-q.keyTyped = () => {
-  if (q.key === ' ') {
+q.keyTyped = (keyCode) => {
+  if (keyCode === q.SPACE) {
     const next = []
     for (let l of lines) {
       const a = l.kochA()

@@ -1,1 +1,1 @@
-import './cc/cc-006-mitosis/mitosis'
+import './noc/noc-8-3-koch-curve'
