@@ -1,1 +1,1 @@
-import './cc/cc-004-purple-rain/purple-rain'
+import './cc/cc-010-maze-generator/maze-generator'
