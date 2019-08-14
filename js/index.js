@@ -1,1 +1,1 @@
-import './noc/noc-8-3-koch-curve'
+import './cc/cc-004-purple-rain/purple-rain'

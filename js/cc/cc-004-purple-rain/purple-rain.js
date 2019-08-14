@@ -1,4 +1,4 @@
-import { Sketch } from '../handcar'
+import { Sketch } from '../../handcar'
 const s = new Sketch()
 s.size(640, 360)
 
