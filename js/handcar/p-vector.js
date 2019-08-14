@@ -80,6 +80,12 @@ PVector.sub = function (v1, v2) {
   return copy
 }
 
+PVector.mult = function (v, s) {
+  const copy = v.copy()
+  copy.mult(s)
+  return copy
+}
+
 PVector.div = function (v, s) {
   const copy = v.copy()
   copy.div(s)

@@ -288,6 +288,9 @@ class Sketch {
   }
 
   color(a, b, c) {
+    a = Math.floor(a)
+    b = Math.floor(b)
+    c = Math.floor(c)
     // TODO: Handle HSB
     return `#${hexFrom256(a)}${hexFrom256(b)}${hexFrom256(c)}`
   }
