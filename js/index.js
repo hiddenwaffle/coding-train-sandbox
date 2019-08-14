@@ -1,1 +1,1 @@
-import './cc/cc-005-space-invaders/space-invaders'
+import './cc/cc-006-mitosis/mitosis'
