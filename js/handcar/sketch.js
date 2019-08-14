@@ -19,7 +19,12 @@ const DOWN = 40
 const LEFT = 37
 const RIGHT = 39
 const SPACE = 32
+const CONTROL = 17
+const ALT = 18
+const SHIFT = 16
+const ESC = 27
 // TODO: More keycodes... or user can use String.fromCharCode()
+
 
 function present(x) {
   return x !== undefined && x !== null
@@ -86,6 +91,7 @@ class Sketch {
       this._keys.set(e.keyCode, true)
     })
     window.addEventListener('keyup', (e) => {
+      console.log(e.key, e.keyCode)
       this._keys.set(e.keyCode, false)
     })
     window.addEventListener('focus', () => {
