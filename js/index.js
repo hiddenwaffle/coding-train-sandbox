@@ -1,1 +1,1 @@
-import './cc/cc-003/snake-game'
+import './cc/cc-004-purple-rain'
