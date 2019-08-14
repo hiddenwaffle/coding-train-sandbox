@@ -19,7 +19,7 @@ const DOWN = 40
 const LEFT = 37
 const RIGHT = 39
 const SPACE = 32
-// TODO: More keycodes...
+// TODO: More keycodes... or user can use String.fromCharCode()
 
 function present(x) {
   return x !== undefined && x !== null
