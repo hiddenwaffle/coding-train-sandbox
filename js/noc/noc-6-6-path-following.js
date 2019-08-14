@@ -180,7 +180,7 @@ function newPath() {
   return path
 }
 
-q.keyPressed = () => {
+q.keyTyped = () => {
   if (q.key === ' ') {
     debug = !debug
   }

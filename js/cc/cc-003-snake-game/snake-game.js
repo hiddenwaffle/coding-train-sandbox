@@ -32,7 +32,7 @@ s.draw = (time) => {
   s.rect(food.x * scl, food.y * scl, scl, scl)
 }
 
-s.keyPressed = () => {
+s.keyTyped = () => {
   // TODO: This doesn't handle simultaneous key presses well?
   switch (s.keyCode) {
     case s.UP:

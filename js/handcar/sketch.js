@@ -78,14 +78,16 @@ class Sketch {
       this.key = String.fromCharCode(e.keyCode)
       if (!this._isKeyPressed) {
         this._isKeyPressed = true
-        this._keyPressed()
+        this._keyTyped()
       }
     })
     window.addEventListener('keyup', () => {
       this._isKeyPressed = false
     })
-    this._keyPressed = () => { } // no-op
+    this._keyTyped = () => { } // no-op
     this._isKeyPressed = false
+    this._keyPressedFn = () => { } // no-op
+    this.keys = { }
     this.key = ''
     // Public Constants ---------------------------------------------------//
     // These are in the same order as the top of this file.
@@ -118,6 +120,7 @@ class Sketch {
     const loop = (time) => {
       this._animationFrameId = requestAnimationFrame(loop)
       if (!this._noLoop) {
+        this._keyPressedFn(this.keys) // not really drawing but needs to be here...
         // Differs from Processing - gives time argument
         this._drawSingleFrame(time)
       }
@@ -153,11 +156,15 @@ class Sketch {
   }
 
   get keyPressed() {
-    return this._isKeyPressed // return a boolean... trickery here
+    return this._isKeyPressed // returns boolean here, but...
   }
 
-  set keyPressed(f) {
-    this._keyPressed = f // accepts a function... trickery here
+  set keyPressed(fn) { // ...accepts a function here
+    this._keyPressedFn = fn
+  }
+
+  set keyTyped(f) {
+    this._keyTyped = f
   }
 
   get width() {

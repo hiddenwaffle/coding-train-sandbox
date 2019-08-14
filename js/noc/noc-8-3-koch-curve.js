@@ -62,7 +62,7 @@ q.draw = () => {
   }
 }
 
-q.keyPressed = () => {
+q.keyTyped = () => {
   if (q.key === ' ') {
     const next = []
     for (let l of lines) {
