@@ -180,8 +180,8 @@ function newPath() {
   return path
 }
 
-q.keyTyped = (keyCode) => {
-  if (keyCode === q.SPACE) {
+q.keyTyped = (key) => {
+  if (key === ' ') {
     debug = !debug
   }
 }

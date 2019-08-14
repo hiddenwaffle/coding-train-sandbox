@@ -14,18 +14,6 @@ const _VALID_SHAPE_MODES = [DEFAULT, TRIANGLES]
 
 const TWO_PI = Math.PI * 2
 
-const UP = 38
-const DOWN = 40
-const LEFT = 37
-const RIGHT = 39
-const SPACE = 32
-const CONTROL = 17
-const ALT = 18
-const SHIFT = 16
-const ESC = 27
-// TODO: More keycodes... or user can use String.fromCharCode()
-
-
 function present(x) {
   return x !== undefined && x !== null
 }
@@ -80,19 +68,22 @@ class Sketch {
     this._isMousePressed = false
     this._mouseReleasedFn = () => { } // no-op
     // Keyboard Setup --------------------------------------------------------//
+    // Uses lowercase versions of these strings:
+    // https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values
     this._keys = new Map()
     this._keyPressedFn = () => { } // no-op
     this._keyTypedFn = () => { } // no-op
     window.addEventListener('keydown', (e) => {
-      const alreadyDown = this._keys.get(e.keyCode)
+      const keyLC = e.key.toLowerCase()
+      const alreadyDown = this._keys.get(keyLC)
       if (!alreadyDown) {
-        this._keyTypedFn(e.keyCode) // Differs from Processing - gives keyCode
+        this._keyTypedFn(keyLC) // Differs from Processing - gives lowercased key
       }
-      this._keys.set(e.keyCode, true)
+      this._keys.set(keyLC, true)
     })
     window.addEventListener('keyup', (e) => {
-      console.log(e.key, e.keyCode)
-      this._keys.set(e.keyCode, false)
+      const keyLC = e.key.toLowerCase()
+      this._keys.set(keyLC, false)
     })
     window.addEventListener('focus', () => {
       for (let i of this._keys.keys()) {
@@ -107,11 +98,6 @@ class Sketch {
     this.CLOSE = CLOSE
     this.TRIANGLES = TRIANGLES
     this.TWO_PI = TWO_PI
-    this.UP = UP
-    this.DOWN = DOWN
-    this.LEFT = LEFT
-    this.RIGHT = RIGHT
-    this.SPACE = SPACE
   }
 
   get draw() {

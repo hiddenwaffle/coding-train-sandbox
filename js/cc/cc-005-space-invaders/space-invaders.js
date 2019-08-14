@@ -41,17 +41,17 @@ s.draw = () => {
 
 s.keyPressed = (keys) => {
   let dx = 0
-  if (keys.get(s.RIGHT)) {
-    dx += 1
-  }
-  if (keys.get(s.LEFT)) {
+  if (keys.get('arrowleft') || keys.get('a')) {
     dx += -1
+  }
+  if (keys.get('arrowright') || keys.get('d')) {
+    dx += 1
   }
   ship.move(dx)
 }
 
-s.keyTyped = (keyCode) => {
-  if (keyCode === s.SPACE) {
+s.keyTyped = (key) => {
+  if (key === ' ') {
     drops.push(new Drop(ship.x, s.height))
   }
 }

@@ -1,1 +1,1 @@
-import './cc/cc-007-solar-system/solar-system'
+import './noc/noc-8-3-koch-curve'

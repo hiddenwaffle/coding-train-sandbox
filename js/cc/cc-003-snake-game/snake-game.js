@@ -32,19 +32,23 @@ s.draw = (time) => {
   s.rect(food.x * scl, food.y * scl, scl, scl)
 }
 
-s.keyTyped = (keyCode) => {
+s.keyTyped = (key) => {
   // TODO: This doesn't handle simultaneous key presses well?
-  switch (keyCode) {
-    case s.UP:
+  switch (key) {
+    case 'w':
+    case 'arrowup':
       snake.dir(0, -1)
       break
-    case s.DOWN:
+    case 's':
+    case 'arrowdown':
       snake.dir(0, 1)
       break
-    case s.LEFT:
+    case 'a':
+    case 'arrowleft':
       snake.dir(-1, 0)
       break
-    case s.RIGHT:
+    case 'd':
+    case 'arrowright':
       snake.dir(1, 0)
       break
   }
