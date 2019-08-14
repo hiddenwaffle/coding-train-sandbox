@@ -18,6 +18,8 @@ const UP = 38
 const DOWN = 40
 const LEFT = 37
 const RIGHT = 39
+const SPACE = 32
+// TODO: More keycodes...
 
 function present(x) {
   return x !== undefined && x !== null
@@ -103,6 +105,7 @@ class Sketch {
     this.DOWN = DOWN
     this.LEFT = LEFT
     this.RIGHT = RIGHT
+    this.SPACE = SPACE
   }
 
   get draw() {
