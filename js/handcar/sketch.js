@@ -14,6 +14,11 @@ const _VALID_SHAPE_MODES = [DEFAULT, TRIANGLES]
 
 const TWO_PI = Math.PI * 2
 
+const UP = 38
+const DOWN = 40
+const LEFT = 37
+const RIGHT = 39
+
 function present(x) {
   return x !== undefined && x !== null
 }
@@ -69,6 +74,7 @@ class Sketch {
     this._mouseReleased = () => { } // no-op
     // Keyboard Setup --------------------------------------------------------//
     window.addEventListener('keydown', (e) => {
+      this.keyCode = e.keyCode
       this.key = String.fromCharCode(e.keyCode)
       if (!this._isKeyPressed) {
         this._isKeyPressed = true
@@ -89,6 +95,10 @@ class Sketch {
     this.CLOSE = CLOSE
     this.TRIANGLES = TRIANGLES
     this.TWO_PI = TWO_PI
+    this.UP = UP
+    this.DOWN = DOWN
+    this.LEFT = LEFT
+    this.RIGHT = RIGHT
   }
 
   get draw() {
@@ -105,10 +115,11 @@ class Sketch {
     }
     this._drawf = fn
     this._noLoop = false
-    const loop = () => {
+    const loop = (time) => {
       this._animationFrameId = requestAnimationFrame(loop)
       if (!this._noLoop) {
-        this._drawSingleFrame()
+        // Differs from Processing - gives time argument
+        this._drawSingleFrame(time)
       }
     }
     loop()
@@ -119,12 +130,12 @@ class Sketch {
   }
 
   redraw() {
-    this._drawSingleFrame()
+    this._drawSingleFrame() // does not give a time argument
   }
 
-  _drawSingleFrame() {
+  _drawSingleFrame(time) {
     this.ctx.save()
-    this._drawf()
+    this._drawf(time)
     this._frameCount++
     this.ctx.restore() // In case there were any transformations.
   }
@@ -178,7 +189,7 @@ class Sketch {
     //
     this.canvas.width = width
     this.canvas.height = height
-    this.background(192, 192, 192) // Like Processing's default.
+    this.background(192) // Like Processing's default.
     //
     for (let prop in state) {
       this.ctx[prop] = state[prop]
@@ -335,7 +346,7 @@ class Sketch {
   }
 
   delay() {
-    throw new Error('"Never use delay!" per Processing tutorial')
+    throw new Error('"Never use delay!" Use draw\'s time argument instead.')
   }
 
   // Shape Machine (BEGIN) ------------------------------------------------//
