@@ -8,12 +8,13 @@ s.draw = () => {
   ship.show()
 }
 
-s.keyPressed = () => {
+s.keyPressed = (keys) => {
   let dx = 0
-  if (s.keyCode === s.RIGHT) {
-    dx = 1
-  } else if (s.keyCode === s.LEFT) {
-    dx = -1
+  if (keys.get(s.RIGHT)) {
+    dx += 1
+  }
+  if (keys.get(s.LEFT)) {
+    dx += -1
   }
   ship.move(dx)
 }

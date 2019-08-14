@@ -46,7 +46,7 @@ class Sketch {
     this._currentEllipseMode = CENTER
     this._currentShapeMode = DEFAULT
     this._currentShapeVertexCount = 0
-    this._drawf = () => { } // no-op
+    this._drawFn = () => { } // no-op
     this._animationFrameId = null
     this._noLoop = true
     // Mouse Setup --------------------------------------------------------//
@@ -57,38 +57,40 @@ class Sketch {
       this._captureMousePosition()
       if (!this._isMousePressed) {
         this._isMousePressed = true
-        this._mousePressed()
+        this._mousePressedFn()
       }
     })
     window.addEventListener('mouseup', () => {
       this._captureMousePosition()
       this._isMousePressed = false
-      this._mouseReleased()
+      this._mouseReleasedFn()
     })
     this.pmouseX = 1
     this.pmouseY = 1
     this.mouseX = 1
     this.mouseY = 1
-    this._mousePressed = () => { } // no-op
+    this._mousePressedFn = () => { } // no-op
     this._isMousePressed = false
-    this._mouseReleased = () => { } // no-op
+    this._mouseReleasedFn = () => { } // no-op
     // Keyboard Setup --------------------------------------------------------//
+    this._keys = new Map()
+    this._keyPressedFn = () => { } // no-op
+    this._keyTypedFn = () => { } // no-op
     window.addEventListener('keydown', (e) => {
-      this.keyCode = e.keyCode
-      this.key = String.fromCharCode(e.keyCode)
-      if (!this._isKeyPressed) {
-        this._isKeyPressed = true
-        this._keyTyped()
+      const alreadyDown = this._keys.get(e.keyCode)
+      if (!alreadyDown) {
+        this._keyTypedFn(e.keyCode) // Differs from Processing - gives keyCode
+      }
+      this._keys.set(e.keyCode, true)
+    })
+    window.addEventListener('keyup', (e) => {
+      this._keys.set(e.keyCode, false)
+    })
+    window.addEventListener('focus', () => {
+      for (let i of this._keys.keys()) {
+        this._keys.set(i, false)
       }
     })
-    window.addEventListener('keyup', () => {
-      this._isKeyPressed = false
-    })
-    this._keyTyped = () => { } // no-op
-    this._isKeyPressed = false
-    this._keyPressedFn = () => { } // no-op
-    this.keys = { }
-    this.key = ''
     // Public Constants ---------------------------------------------------//
     // These are in the same order as the top of this file.
     this.CORNER = CORNER
@@ -115,14 +117,13 @@ class Sketch {
     if (this._animationFrameId !== null) {
       cancelAnimationFrame(this._animationFrameId)
     }
-    this._drawf = fn
+    this._drawFn = fn
     this._noLoop = false
     const loop = (time) => {
       this._animationFrameId = requestAnimationFrame(loop)
+      this._keyPressedFn(this._keys) // Not really drawing but needs to be here...
       if (!this._noLoop) {
-        this._keyPressedFn(this.keys) // not really drawing but needs to be here...
-        // Differs from Processing - gives time argument
-        this._drawSingleFrame(time)
+        this._drawSingleFrame(time) // Differs from Processing - gives time argument
       }
     }
     loop()
@@ -138,21 +139,21 @@ class Sketch {
 
   _drawSingleFrame(time) {
     this.ctx.save()
-    this._drawf(time)
+    this._drawFn(time)
     this._frameCount++
     this.ctx.restore() // In case there were any transformations.
   }
 
   get mousePressed() {
-    return this._isMousePressed // return a boolean... trickery here
+    return this._isMousePressed // return a boolean, but...
   }
 
-  set mousePressed(f) {
-    this._mousePressed = f // accepts a function... trickery here
+  set mousePressed(fn) {
+    this._mousePressedFn = fn // ...accepts a function here
   }
 
-  set mouseReleased(f) {
-    this._mouseReleased = f
+  set mouseReleased(fn) {
+    this._mouseReleasedFn = fn
   }
 
   get keyPressed() {
@@ -163,8 +164,8 @@ class Sketch {
     this._keyPressedFn = fn
   }
 
-  set keyTyped(f) {
-    this._keyTyped = f
+  set keyTyped(fn) {
+    this._keyTypedFn = fn
   }
 
   get width() {
