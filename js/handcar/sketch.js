@@ -495,6 +495,32 @@ class Sketch {
   updatePixels() {
     this.ctx.putImageData(this._capturedImageData, 0, 0)
   }
+
+  createSlider(min, max, value=min, step=1) {
+    const element = document.createElement('input')
+    this.canvas.parentElement.appendChild(element)
+    element.type = 'range'
+    element.min = min
+    element.max = max
+    element.value = value // Truncates decimals for some reason
+    element.step = step
+    return {
+      value() {
+        return parseFloat(element.value)
+      }
+    }
+  }
+
+  createP(initial) {
+    const element = document.createElement('p')
+    this.canvas.parentElement.appendChild(element)
+    element.textContent = initial
+    return {
+      value() {
+        return element.textContent
+      }
+    }
+  }
 }
 
 // TODO: Use this somewhere? Might need adjustments to mouse position?
