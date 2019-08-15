@@ -201,8 +201,11 @@ class Sketch {
 
   line(x1, y1, x2, y2) {
     this.ctx.beginPath()
-    this.ctx.moveTo(x1, y1)
-    this.ctx.lineTo(x2, y2)
+    // Add subpixel for clearer lines... better still doesn't look quite right.
+    // https://stackoverflow.com/a/13884434
+    // https://stackoverflow.com/a/7531540
+    this.ctx.moveTo(x1 + 0.5, y1 + 0.5)
+    this.ctx.lineTo(x2 + 0.5, y2 + 0.5)
     if (this._strokeOn) {
       this.ctx.stroke()
     }
