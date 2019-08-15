@@ -1,4 +1,4 @@
-import { Sketch, PVector } from '../handcar'
+import { Sketch, Vector } from '../handcar'
 const q = new Sketch()
 
 // https://www.youtube.com/watch?v=2CL1maXeQCI
@@ -7,9 +7,9 @@ q.size(640, 360)
 
 class Vehicle {
   constructor(x, y) {
-    this.acceleration = new PVector()
-    this.velocity = new PVector(0, -2)
-    this.location = new PVector(x, y)
+    this.acceleration = new Vector()
+    this.velocity = new Vector(0, -2)
+    this.location = new Vector(x, y)
     this.r = 6
     this.maxspeed = 4
     this.maxforce = 0.1
@@ -27,7 +27,7 @@ class Vehicle {
   }
 
   arrive(target) {
-    const desired = PVector.sub(target, this.location)
+    const desired = Vector.sub(target, this.location)
     const d = desired.mag()
     if (d < 100) {
       const m = q.map(d, 0, 100, 0, this.maxspeed)
@@ -35,7 +35,7 @@ class Vehicle {
     } else {
       desired.setMag(this.maxspeed)
     }
-    const steer = PVector.sub(desired, this.velocity)
+    const steer = Vector.sub(desired, this.velocity)
     steer.limit(this.maxforce)
     this.applyForce(steer)
   }
@@ -61,7 +61,7 @@ const v = new Vehicle(q.width / 2, q.height /2)
 
 q.draw = () => {
   q.background(255)
-  const mouse = new PVector(q.mouseX, q.mouseY)
+  const mouse = new Vector(q.mouseX, q.mouseY)
   q.fill(200)
   q.stroke(0)
   q.strokeWeight(2)

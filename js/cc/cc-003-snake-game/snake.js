@@ -1,5 +1,5 @@
 import s, { scl } from './snake-game-sketch'
-import { PVector } from '../../handcar'
+import { Vector } from '../../handcar'
 
 export class Snake {
   constructor() {
@@ -37,7 +37,7 @@ export class Snake {
     // Tail
     if (this.digest) {
       this.digest = false
-      this.tail.push(new PVector(this.x, this.y))
+      this.tail.push(new Vector(this.x, this.y))
     } else {
       for (let i = 0; i < this.tail.length; i++) {
         if (i === this.tail.length - 1) {

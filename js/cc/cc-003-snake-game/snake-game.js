@@ -1,5 +1,5 @@
 import s, { scl } from './snake-game-sketch'
-import { PVector } from '../../handcar'
+import { Vector } from '../../handcar'
 import { Snake } from './snake'
 
 // https://www.youtube.com/watch?v=AaGK-fj-BAM
@@ -12,7 +12,7 @@ let food = pickLocation()
 function pickLocation() {
   const cols = Math.floor(s.width / scl)
   const rows = Math.floor(s.height / scl)
-  return new PVector(Math.floor(s.random(cols)),
+  return new Vector(Math.floor(s.random(cols)),
                      Math.floor(s.random(rows)))
 }
 

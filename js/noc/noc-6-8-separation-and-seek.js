@@ -1,4 +1,4 @@
-import { Sketch, PVector } from '../handcar'
+import { Sketch, Vector } from '../handcar'
 const q = new Sketch()
 q.size(640, 360)
 
@@ -6,12 +6,12 @@ q.size(640, 360)
 
 class Vehicle {
   constructor(x, y) {
-    this.position = new PVector(x, y)
+    this.position = new Vector(x, y)
     this.r = 12
     this.maxspeed = 3
     this.maxforce = 0.2
-    this.acceleration = new PVector()
-    this.velocity = new PVector()
+    this.acceleration = new Vector()
+    this.velocity = new Vector()
   }
 
   applyForce(force) {
@@ -20,7 +20,7 @@ class Vehicle {
 
   applyBehaviors(vehicles) {
     const separateForce = this.separate(vehicles)
-    const seekForce = this.seek(new PVector(q.mouseX, q.mouseY))
+    const seekForce = this.seek(new Vector(q.mouseX, q.mouseY))
     separateForce.mult(2)
     seekForce.mult(1)
     this.applyForce(separateForce)
@@ -28,22 +28,22 @@ class Vehicle {
   }
 
   seek(target) {
-    const desired = PVector.sub(target, this.position)
+    const desired = Vector.sub(target, this.position)
     desired.normalize()
     desired.mult(this.maxspeed)
-    const steer = PVector.sub(desired, this.velocity)
+    const steer = Vector.sub(desired, this.velocity)
     steer.limit(this.maxforce)
     return steer
   }
 
   separate(vehicles) {
     const desiredseparate = this.r * 2
-    const sum = new PVector()
+    const sum = new Vector()
     let count = 0
     for (let other of vehicles) {
-      const d = PVector.dist(this.position, other.position)
+      const d = Vector.dist(this.position, other.position)
       if ((d > 0) && (d < desiredseparate)) {
-        const diff = PVector.sub(this.position, other.position)
+        const diff = Vector.sub(this.position, other.position)
         diff.normalize()
         diff.div(d)
         sum.add(diff)

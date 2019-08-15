@@ -1,4 +1,4 @@
-import { Sketch, PVector } from '../handcar'
+import { Sketch, Vector } from '../handcar'
 const q = new Sketch()
 q.size(800, 300)
 
@@ -20,7 +20,7 @@ class KochLine {
   }
 
   kochB() {
-    const v = PVector.sub(this.end, this.start)
+    const v = Vector.sub(this.end, this.start)
     v.div(3)
     v.add(this.start)
     return v
@@ -28,7 +28,7 @@ class KochLine {
 
   kochC() {
     const a = this.start.copy()
-    const v = PVector.sub(this.end, this.start)
+    const v = Vector.sub(this.end, this.start)
     v.div(3)
     a.add(v)
     v.rotate(-q.radians(60))
@@ -37,7 +37,7 @@ class KochLine {
   }
 
   kochD() {
-    const v = PVector.sub(this.end, this.start)
+    const v = Vector.sub(this.end, this.start)
     v.mult(2/3)
     v.add(this.start)
     return v
@@ -50,8 +50,8 @@ class KochLine {
 
 q.background(255)
 let lines = []
-const alphaStart = new PVector(0, q.height - 50)
-const alphaEnd = new PVector(q.width, q.height - 50)
+const alphaStart = new Vector(0, q.height - 50)
+const alphaEnd = new Vector(q.width, q.height - 50)
 lines.push(new KochLine(alphaStart, alphaEnd))
 
 q.draw = () => {

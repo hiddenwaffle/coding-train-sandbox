@@ -1,4 +1,4 @@
-import { Sketch, PVector } from '../handcar'
+import { Sketch, Vector } from '../handcar'
 const q = new Sketch()
 
 // https://www.youtube.com/watch?v=fML1KpvvQTc
@@ -7,14 +7,14 @@ q.size(640, 360)
 
 class Mover {
   constructor() {
-    this.location = new PVector(400, 50)
-    this.velocity = new PVector(1, 0)
-    this.acceleration = new PVector()
+    this.location = new Vector(400, 50)
+    this.velocity = new Vector(1, 0)
+    this.acceleration = new Vector()
     this.mass = 1
   }
 
   applyForce(force) {
-    const f = PVector.div(force, this.mass)
+    const f = Vector.div(force, this.mass)
     this.acceleration.add(f)
   }
 
@@ -36,14 +36,14 @@ class Attractor {
   constructor() {
     this.mass = 20
     this.G = 1
-    this.location = new PVector(q.width / 2, q.height / 2)
+    this.location = new Vector(q.width / 2, q.height / 2)
     this.dragging = false
     this.rollover = false
-    this.dragOffset = new PVector()
+    this.dragOffset = new Vector()
   }
 
   attract(m) {
-    const force = PVector.sub(this.location, m.location)
+    const force = Vector.sub(this.location, m.location)
     let d = force.mag()
     d = q.constrain(d, 5, 25)
     force.normalize()

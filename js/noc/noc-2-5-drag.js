@@ -1,4 +1,4 @@
-import { Sketch, PVector } from '../handcar'
+import { Sketch, Vector } from '../handcar'
 const q = new Sketch()
 
 // https://www.youtube.com/watch?v=YvNiLmHXZ_U
@@ -7,14 +7,14 @@ q.size(640, 360)
 
 class Mover {
   constructor() {
-    this.location = new PVector(q.random(q.width), 0)
-    this.velocity = new PVector()
-    this.acceleration = new PVector()
+    this.location = new Vector(q.random(q.width), 0)
+    this.velocity = new Vector()
+    this.acceleration = new Vector()
     this.mass = q.random(0.5, 4)
   }
 
   applyForce(force) {
-    const f = PVector.div(force, this.mass)
+    const f = Vector.div(force, this.mass)
     this.acceleration.add(f)
   }
 
@@ -56,13 +56,13 @@ for (let i = 0; i < 5; i++) {
   movers[i] = new Mover()
 }
 
-// const wind = new PVector(0.2, 0)
+// const wind = new Vector(0.2, 0)
 
 q.draw = () => {
   q.background(255)
 
   for (let m of movers) {
-    const gravity = new PVector(0, 0.3)
+    const gravity = new Vector(0, 0.3)
     gravity.mult(m.mass)
     m.applyForce(gravity)
     // m.applyForce(wind)

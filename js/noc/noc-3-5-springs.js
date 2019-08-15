@@ -1,4 +1,4 @@
-import { Sketch, PVector } from '../handcar'
+import { Sketch, Vector } from '../handcar'
 const q = new Sketch()
 
 // https://www.youtube.com/watch?v=cluKQOY92Dw
@@ -7,14 +7,14 @@ q.size(640, 360)
 
 class Mover {
   constructor(x, y) {
-    this.location = new PVector(x, y)
-    this.velocity = new PVector()
-    this.acceleration = new PVector()
+    this.location = new Vector(x, y)
+    this.velocity = new Vector()
+    this.acceleration = new Vector()
     this.mass = 1
   }
 
   applyForce(force) {
-    const f = PVector.div(force, this.mass)
+    const f = Vector.div(force, this.mass)
     this.acceleration.add(f)
   }
 
@@ -33,15 +33,15 @@ class Mover {
 }
 
 const restLength = 200
-const origin = new PVector(q.width / 2, 0)
+const origin = new Vector(q.width / 2, 0)
 const bob = new Mover(q.width / 2, 240)
-const gravity = new PVector(0, 0.1)
+const gravity = new Vector(0, 0.1)
 
 q.draw = () => {
   q.background(255)
   q.line(origin.x, origin.y, bob.location.x, bob.location.y)
 
-  const spring = PVector.sub(bob.location, origin)
+  const spring = Vector.sub(bob.location, origin)
   const currentLength = spring.mag()
   spring.normalize()
   const k = 0.1
@@ -49,7 +49,7 @@ q.draw = () => {
   spring.mult(-k * stretch)
   bob.applyForce(spring)
 
-  const wind = new PVector(0.1, 0)
+  const wind = new Vector(0.1, 0)
   if (q.mousePressed) {
     bob.applyForce(wind)
   }

@@ -1,12 +1,12 @@
 import s from './mitosis-sketch'
-import { PVector } from '../../handcar'
+import { Vector } from '../../handcar'
 
 export class Cell {
   constructor(pos, initialPush, d) {
-    this.pos = pos || new PVector(s.random(s.width), s.random(s.height))
-    this.vel = new PVector()
-    this.acc = new PVector()
-    this.initialPush = initialPush || new PVector()
+    this.pos = pos || new Vector(s.random(s.width), s.random(s.height))
+    this.vel = new Vector()
+    this.acc = new Vector()
+    this.initialPush = initialPush || new Vector()
     this.d = d || 200
     this.c = s.color(s.random(0, 128),
                      s.random(128, 255),
@@ -21,9 +21,9 @@ export class Cell {
   }
 
   mitosis() {
-    const pusha = new PVector.random2D()
+    const pusha = new Vector.random2D()
     pusha.mult(this.d * 0.025)
-    const pushb = PVector.mult(pusha, -1)
+    const pushb = Vector.mult(pusha, -1)
     return [new Cell(this.pos.copy(), pusha, this.d / 1.4),
             new Cell(this.pos.copy(), pushb, this.d / 1.4)]
   }
@@ -53,7 +53,7 @@ export class Cell {
     const maxforce = 1
     const x = s.noise(this.xvalue) * maxforce - (maxforce / 2)
     const y = s.noise(this.yvalue) * maxforce - (maxforce / 2)
-    return new PVector(x, y)
+    return new Vector(x, y)
   }
 
   edges() {

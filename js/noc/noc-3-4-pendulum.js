@@ -1,4 +1,4 @@
-import { Sketch, PVector } from '../handcar'
+import { Sketch, Vector } from '../handcar'
 const q = new Sketch()
 
 // https://www.youtube.com/watch?v=9iaEqGOh5WM
@@ -6,8 +6,8 @@ const q = new Sketch()
 q.size(640, 360)
 
 const len = 180
-const origin = new PVector(q.width / 2, 0)
-const bob = new PVector(q.width / 2, len)
+const origin = new Vector(q.width / 2, 0)
+const bob = new Vector(q.width / 2, len)
 let angle = Math.PI / 4
 let aVel = 0
 let aAcc = 0

@@ -1,4 +1,4 @@
-import { Sketch, PVector } from '../handcar'
+import { Sketch, Vector } from '../handcar'
 const q = new Sketch()
 
 // https://www.youtube.com/watch?v=ofwmvH95Hdo
@@ -7,9 +7,9 @@ q.size(600, 360)
 
 q.draw = () => {
   q.background(255)
-  const a = new PVector(20, 300)
-  const b = new PVector(500, 250)
-  const mouse = new PVector(q.mouseX, q.mouseY)
+  const a = new Vector(20, 300)
+  const b = new Vector(500, 250)
+  const mouse = new Vector(q.mouseX, q.mouseY)
   q.stroke(0)
   q.strokeWeight(2)
   q.line(a.x, a.y, b.x, b.y)
@@ -28,10 +28,10 @@ q.draw = () => {
 }
 
 function scalarProjection(p, a, b) {
-  const ap = PVector.sub(p, a)
-  const ab = PVector.sub(b, a)
+  const ap = Vector.sub(p, a)
+  const ab = Vector.sub(b, a)
   ab.normalize()
   ab.mult(ap.dot(ab))
-  const normalPoint = PVector.add(a, ab)
+  const normalPoint = Vector.add(a, ab)
   return normalPoint
 }

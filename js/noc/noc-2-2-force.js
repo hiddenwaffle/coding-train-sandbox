@@ -1,4 +1,4 @@
-import { Sketch, PVector } from '../handcar'
+import { Sketch, Vector } from '../handcar'
 const q = new Sketch()
 
 // https://www.youtube.com/watch?v=MkXoQVWRDJs
@@ -7,9 +7,9 @@ q.size(640, 360)
 
 class Mover {
   constructor() {
-    this.location = new PVector(q.width / 2, q.height / 2)
-    this.velocity = new PVector()
-    this.acceleration = new PVector()
+    this.location = new Vector(q.width / 2, q.height / 2)
+    this.velocity = new Vector()
+    this.acceleration = new Vector()
   }
 
   applyForce(force) {
@@ -54,11 +54,11 @@ const m = new Mover()
 q.draw = () => {
   q.background(255)
 
-  const gravity = new PVector(0, 0.3)
+  const gravity = new Vector(0, 0.3)
   m.applyForce(gravity)
 
   if (q.mousePressed) {
-    const wind = new PVector(0.2, 0)
+    const wind = new Vector(0.2, 0)
     m.applyForce(wind)
   }
 

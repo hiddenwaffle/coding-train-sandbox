@@ -1,28 +1,15 @@
-import { Sketch } from '../../handcar'
-const s = new Sketch()
-s.size(400, 400)
+import s from './fractal-trees-sketch'
+import { Vector } from '../../handcar'
+import { Branch } from './branch'
 
-s.createP('Angle')
-const slider = s.createSlider(0, s.TWO_PI, Math.PI / 4, 0.01)
+const tree = []
+const a = new Vector(s.width / 2, s.height)
+const b = new Vector(s.width / 2, s.height - 100)
+tree.push(new Branch(a, b))
 
 s.draw = () => {
   s.background(51)
-  s.stroke(255)
-  s.translate(200, s.height)
-  branch(100, slider.value())
-}
-
-function branch(len, angle) {
-  s.line(0, 0, 0, -len)
-  if (len > 4) {
-    s.translate(0, -len)
-    s.pushMatrix()
-    s.rotate(angle)
-    branch(len * 0.67, angle)
-    s.popMatrix()
-    s.pushMatrix()
-    s.rotate(-angle)
-    branch(len * 0.67, angle)
-    s.popMatrix()
+  for (let branch of tree) {
+    branch.show()
   }
 }

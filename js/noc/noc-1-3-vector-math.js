@@ -1,4 +1,4 @@
-import { Sketch, PVector } from '/handcar'
+import { Sketch, Vector } from '/handcar'
 const q = new Sketch()
 
 // https://www.youtube.com/watch?v=s6b1_3bNCxk
@@ -14,8 +14,8 @@ q.draw = () => {
   q.translate(q.width / 2, q.height / 2)
   q.ellipse(0, 0, 4, 4)
 
-  const mouse = new PVector(q.mouseX, q.mouseY)
-  const center = new PVector(q.width / 2, q.height / 2)
+  const mouse = new Vector(q.mouseX, q.mouseY)
+  const center = new Vector(q.width / 2, q.height / 2)
   mouse.sub(center)
   mouse.mult(1.5)
 

@@ -1,4 +1,4 @@
-import { Sketch, PVector } from '../handcar'
+import { Sketch, Vector } from '../handcar'
 const q = new Sketch()
 
 // https://www.youtube.com/watch?v=vdgiqMkFygc
@@ -6,8 +6,8 @@ const q = new Sketch()
 
 class Particle {
   constructor(l) {
-    this.acceleration = new PVector(0, 0.05)
-    this.velocity = new PVector.random2D()
+    this.acceleration = new Vector(0, 0.05)
+    this.velocity = new Vector.random2D()
     this.location = l.copy()
     this.lifespan = 255
     this.r = Math.floor(q.random(256))
@@ -80,9 +80,9 @@ class ParticleSystem {
 
 q.size(640, 360)
 const pss = []
-pss.push(new ParticleSystem(new PVector(q.width / 2, 50)))
-const gravity = new PVector(0, 0.05)
-const wind = new PVector(0.1, 0)
+pss.push(new ParticleSystem(new Vector(q.width / 2, 50)))
+const gravity = new Vector(0, 0.05)
+const wind = new Vector(0.1, 0)
 
 q.draw = () => {
   q.background(255)
@@ -99,6 +99,6 @@ q.draw = () => {
 q.mouseReleased = () => {
   if (q.mouseX >= 0 && q.mouseX <= q.width &&
       q.mouseY >= 0 && q.mouseY <= q.height) {
-    pss.push(new ParticleSystem(new PVector(q.mouseX, q.mouseY)))
+    pss.push(new ParticleSystem(new Vector(q.mouseX, q.mouseY)))
   }
 }

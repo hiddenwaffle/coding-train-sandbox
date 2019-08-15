@@ -1,4 +1,4 @@
-class PVector {
+class Vector {
   constructor(x, y) {
     this.x = x || 0
     this.y = y || 0
@@ -50,7 +50,7 @@ class PVector {
   }
 
   copy() {
-    return new PVector(this.x, this.y)
+    return new Vector(this.x, this.y)
   }
 
   heading2D() {
@@ -68,41 +68,41 @@ class PVector {
   }
 }
 
-PVector.add = function (v1, v2) {
+Vector.add = function (v1, v2) {
   const copy = v1.copy()
   copy.add(v2)
   return copy
 }
 
-PVector.sub = function (v1, v2) {
+Vector.sub = function (v1, v2) {
   const copy = v1.copy()
   copy.sub(v2)
   return copy
 }
 
-PVector.mult = function (v, s) {
+Vector.mult = function (v, s) {
   const copy = v.copy()
   copy.mult(s)
   return copy
 }
 
-PVector.div = function (v, s) {
+Vector.div = function (v, s) {
   const copy = v.copy()
   copy.div(s)
   return copy
 }
 
-PVector.fromAngle = function (a) {
-  return new PVector(Math.cos(a), Math.sin(a))
+Vector.fromAngle = function (a) {
+  return new Vector(Math.cos(a), Math.sin(a))
 }
 
-PVector.random2D = function () {
-  return PVector.fromAngle(Math.random() * 2 * Math.PI)
+Vector.random2D = function () {
+  return Vector.fromAngle(Math.random() * 2 * Math.PI)
 }
 
-PVector.dist = function (a, b) {
+Vector.dist = function (a, b) {
   return Math.sqrt(Math.pow(b.x - a.x, 2) +
                    Math.pow(b.y - a.y, 2))
 }
 
-export default PVector = PVector
+export default Vector = Vector

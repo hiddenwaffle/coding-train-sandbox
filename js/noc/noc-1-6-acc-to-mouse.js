@@ -1,17 +1,17 @@
-import { Sketch, PVector } from '../handcar'
+import { Sketch, Vector } from '../handcar'
 const q = new Sketch()
 
 // https://www.youtube.com/watch?v=7eBLAgT0yUs
 
 class Mover {
   constructor() {
-    this.location = new PVector(q.width / 2, q.height / 2)
-    this.velocity = new PVector()
-    this.acceleration = new PVector()
+    this.location = new Vector(q.width / 2, q.height / 2)
+    this.velocity = new Vector()
+    this.acceleration = new Vector()
   }
 
   update() {
-    const mouse = new PVector(q.mouseX, q.mouseY)
+    const mouse = new Vector(q.mouseX, q.mouseY)
     mouse.sub(this.location)
     mouse.setMag(0.1)
     this.acceleration = mouse

@@ -1,5 +1,5 @@
 import _Sketch from './sketch'
-import _PVector from './p-vector'
+import _Vector from './vector'
 
 export const Sketch = _Sketch
-export const PVector = _PVector
+export const Vector = _Vector

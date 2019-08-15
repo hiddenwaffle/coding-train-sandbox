@@ -1,4 +1,4 @@
-import { Sketch, PVector } from '../handcar'
+import { Sketch, Vector } from '../handcar'
 const q = new Sketch()
 q.size(640, 360)
 
@@ -10,8 +10,8 @@ class Vehicle {
     this.r = 4
     this.maxspeed = ms
     this.maxforce = mf
-    this.acceleration = new PVector()
-    this.velocity = new PVector(this.maxspeed, 0)
+    this.acceleration = new Vector()
+    this.velocity = new Vector(this.maxspeed, 0)
   }
 
   run() {
@@ -23,7 +23,7 @@ class Vehicle {
     const predict = this.velocity.copy()
     predict.normalize()
     predict.mult(50)
-    const predictpos = PVector.add(this.position, predict)
+    const predictpos = Vector.add(this.position, predict)
     let normal = null
     let target = null
     let worldRecord = 1000000
@@ -34,11 +34,11 @@ class Vehicle {
       if (normalPoint.x < a.x || normalPoint.x > b.x) {
         normalPoint = b.copy()
       }
-      const distance = PVector.dist(predictpos, normalPoint)
+      const distance = Vector.dist(predictpos, normalPoint)
       if (distance < worldRecord) {
         worldRecord = distance
         normal = normalPoint
-        const dir = PVector.sub(b, a)
+        const dir = Vector.sub(b, a)
         dir.normalize()
         dir.mult(10)
         target = normalPoint.copy()
@@ -64,11 +64,11 @@ class Vehicle {
   }
 
   getNormalPoint(p, a, b) {
-    const ap = PVector.sub(p, a)
-    const ab = PVector.sub(b, a)
+    const ap = Vector.sub(p, a)
+    const ab = Vector.sub(b, a)
     ab.normalize()
     ab.mult(ap.dot(ab))
-    const normalPoint = PVector.add(a, ab)
+    const normalPoint = Vector.add(a, ab)
     return normalPoint
   }
 
@@ -84,11 +84,11 @@ class Vehicle {
   }
 
   seek(target) {
-    const desired = PVector.sub(target, this.position)
+    const desired = Vector.sub(target, this.position)
     if (desired.mag() === 0) return
     desired.normalize()
     desired.mult(this.maxspeed)
-    const steer = PVector.sub(desired, this.velocity)
+    const steer = Vector.sub(desired, this.velocity)
     steer.limit(this.maxforce)
     this.applyForce(steer)
   }
@@ -123,7 +123,7 @@ class Path {
   }
 
   addPoint(x, y) {
-    this.points.push(new PVector(x, y))
+    this.points.push(new Vector(x, y))
   }
 
   getStart() {
@@ -156,8 +156,8 @@ class Path {
 
 let debug = true
 let path = newPath()
-let car1 = new Vehicle(new PVector(0, q.height / 2), 2, 0.04)
-let car2 = new Vehicle(new PVector(0, q.height / 2), 3, 0.1)
+let car1 = new Vehicle(new Vector(0, q.height / 2), 2, 0.04)
+let car2 = new Vehicle(new Vector(0, q.height / 2), 3, 0.1)
 
 q.draw = () => {
   q.background(255)

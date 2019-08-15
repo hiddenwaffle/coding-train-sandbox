@@ -1,4 +1,4 @@
-import { Sketch, PVector } from '/handcar'
+import { Sketch, Vector } from '/handcar'
 const q = new Sketch()
 
 // https://www.youtube.com/watch?v=7nTLzLf7jUg
@@ -7,8 +7,8 @@ q.size(400, 300)
 
 class Ball {
   constructor() {
-    this.location = new PVector(q.width / 2, q.height / 2)
-    this.velocity = new PVector(2.5, -2)
+    this.location = new Vector(q.width / 2, q.height / 2)
+    this.velocity = new Vector(2.5, -2)
   }
 
   move() {

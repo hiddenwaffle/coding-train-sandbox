@@ -1,4 +1,4 @@
-import { Sketch, PVector } from '../handcar'
+import { Sketch, Vector } from '../handcar'
 const q = new Sketch()
 
 // https://www.youtube.com/watch?v=XXEK3UEDDIg
@@ -11,8 +11,8 @@ class Vehicle {
     this.r = 6
     this.maxspeed = ms
     this.maxforce = mf
-    this.acceleration = new PVector()
-    this.velocity = new PVector()
+    this.acceleration = new Vector()
+    this.velocity = new Vector()
   }
 
   run() {
@@ -24,7 +24,7 @@ class Vehicle {
   follow(flow) {
     const desired = flow.lookup(this.location)
     desired.mult(this.maxspeed)
-    const steer = PVector.sub(desired, this.velocity)
+    const steer = Vector.sub(desired, this.velocity)
     steer.limit(this.maxforce)
     this.applyForce(steer)
   }
@@ -80,7 +80,7 @@ class FlowField {
       this.field.push([])
       for (let j = 0; j < this.rows; j++) {
         const theta = q.map(q.noise(xoff, yoff), 0, 1, 0, q.TWO_PI)
-        this.field[i][j] = PVector.fromAngle(theta)
+        this.field[i][j] = Vector.fromAngle(theta)
         yoff += 0.1
       }
       xoff += 0.1
@@ -119,7 +119,7 @@ const debug = true
 const flowfield = new FlowField(20)
 const vehicles = []
 for (let i = 0; i < 120; i++) {
-  vehicles.push(new Vehicle(new PVector(q.random(q.width),
+  vehicles.push(new Vehicle(new Vector(q.random(q.width),
                                         q.random(q.height)),
                             q.random(2, 5),
                             q.random(0.1, 0.5)))
