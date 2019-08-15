@@ -11,7 +11,8 @@ s.draw = () => {
   //
   s.background(51)
   for (let cell of grid) {
-    cell.show()
+    cell.fill()
+    cell.stroke()
   }
   current.visited = true
   current.highlight()

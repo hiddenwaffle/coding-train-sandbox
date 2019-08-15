@@ -49,7 +49,17 @@ export class Cell {
     s.rect(x, y, w, w)
   }
 
-  show() {
+  fill() {
+    if (this.visited) {
+      const x = this.i * w
+      const y = this.j * w
+      s.noStroke()
+      s.fill(255, 0, 255, 128)
+      s.rect(x, y, w, w)
+    }
+  }
+
+  stroke() {
     const x = this.i * w
     const y = this.j * w
     s.stroke(255)
@@ -57,10 +67,5 @@ export class Cell {
     if (this.walls[1]) s.line(x + w, y, x + w, y + w) // right
     if (this.walls[2]) s.line(x, y + w, x + w, y + w) // bottom
     if (this.walls[3]) s.line(x, y, x, y + w) // left
-    if (this.visited) {
-      s.noStroke()
-      s.fill(255, 0, 255, 128)
-      s.rect(x, y, w, w)
-    }
   }
 }
