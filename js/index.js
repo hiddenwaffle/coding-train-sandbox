@@ -1,1 +1,1 @@
-import './cc/cc-012-lorenz-attractor/lorenz-attractor'
+import './cc/cc-013-reaction-diffusion/reaction-diffusion'

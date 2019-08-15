@@ -44,6 +44,7 @@ class Sketch {
     this._drawFn = () => { } // no-op
     this._animationFrameId = null
     this._noLoop = true
+    this._pixels = null
     // Mouse Setup --------------------------------------------------------//
     window.addEventListener('mousemove', (event) => {
       this._captureMousePosition()
@@ -204,6 +205,7 @@ class Sketch {
     // Add subpixel for clearer lines... better still doesn't look quite right.
     // https://stackoverflow.com/a/13884434
     // https://stackoverflow.com/a/7531540
+    this.ctx.scale(1, 1)
     this.ctx.moveTo(x1 + 0.5, y1 + 0.5)
     this.ctx.lineTo(x2 + 0.5, y2 + 0.5)
     if (this._strokeOn) {
@@ -244,18 +246,18 @@ class Sketch {
     }
   }
 
-  ellipse(px, py, prw, prh) {
+  ellipse(px, py, pw, ph) {
     let x, y, rw, rh
     if (this._currentEllipseMode === CENTER) {
       x = px
       y = py
-      rw = prw / 2
-      rh = prh / 2
+      rw = pw / 2
+      rh = ph / 2
     } else if (this._currentEllipseMode === RADIUS) {
       x = px
       y = py
-      rw = prw
-      rh = prh
+      rw = pw
+      rh = ph
     }
     this.ctx.beginPath()
     this.ctx.ellipse(x, y, rw, rh, 0, 0, TWO_PI)
@@ -479,6 +481,19 @@ class Sketch {
     } else {
       this.ctx.scale(a, a)
     }
+  }
+
+  loadPixels() {
+    this._capturedImageData = this.ctx.getImageData(0, 0, this.canvas.width, this.canvas.height)
+    this._pixels = this._capturedImageData.data
+  }
+
+  get pixels() {
+    return this._pixels
+  }
+
+  updatePixels() {
+    this.ctx.putImageData(this._capturedImageData, 0, 0)
   }
 }
 
