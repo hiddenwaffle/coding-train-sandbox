@@ -472,6 +472,14 @@ class Sketch {
   radians(degrees) {
     return degrees * (Math.PI / 180)
   }
+
+  scale(a, b) {
+    if (present(b)) {
+      this.ctx.scale(a, b)
+    } else {
+      this.ctx.scale(a, a)
+    }
+  }
 }
 
 // TODO: Use this somewhere? Might need adjustments to mouse position?
