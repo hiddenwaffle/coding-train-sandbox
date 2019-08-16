@@ -402,16 +402,29 @@ class Sketch {
   // TODO: randomSeed()
   // http://davidbau.com/archives/2010/01/30/random_seeds_coded_hints_and_quintillions.html
 
+  /**
+   * random([])        <-- from p5.js, not Processing
+   * random(max)
+   * random(min, max)
+   */
   random(a, b) {
-    let min, max
-    if (present(b)) {
-      min = a
-      max = b
+    if (typeof a == 'object') {
+      if (a.length === 0) {
+        return null
+      } else {
+        return a[Math.floor(this.random(0, a.length - 1))]
+      }
     } else {
-      min = 0
-      max = a
+      let min, max
+      if (present(b)) {
+        min = a
+        max = b
+      } else {
+        min = 0
+        max = a
+      }
+      return Math.random() * (max - min) + min
     }
-    return Math.random() * (max - min) + min
   }
 
   randomGaussian() {
