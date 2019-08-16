@@ -4,7 +4,8 @@ import { Vector } from '../../handcar'
 export class Leaf {
   constructor() {
     this.pos = new Vector(s.random(s.width),
-                          s.random(s.height))
+                          s.random(s.height) - 100)
+    this.reached = false
   }
 
   show() {
