@@ -463,6 +463,10 @@ class Sketch {
     this.ctx.restore()
   }
 
+  resetMatrix() {
+    this.ctx.resetTransform()
+  }
+
   _captureMousePosition() {
     this.pmouseX = this.mouseX
     this.pmouseY = this.mouseY
@@ -505,7 +509,10 @@ class Sketch {
     element.value = value // Truncates decimals for some reason
     element.step = step
     return {
-      value() {
+      value(value) {
+        if (value != undefined) {
+          element.value = value
+        }
         return parseFloat(element.value)
       }
     }
@@ -516,8 +523,24 @@ class Sketch {
     this.canvas.parentElement.appendChild(element)
     element.textContent = initial
     return {
-      value() {
+      value(value) {
+        if (value != undefined) {
+          element.textContent = value
+        }
         return element.textContent
+      }
+    }
+  }
+
+  createButton(caption) {
+    const element = document.createElement('button')
+    this.canvas.parentElement.appendChild(element)
+    element.textContent = caption
+    return {
+      mousePressed(fn) {
+        element.addEventListener('click', () => {
+          fn()
+        })
       }
     }
   }
