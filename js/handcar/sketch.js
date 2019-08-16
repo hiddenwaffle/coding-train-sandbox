@@ -322,8 +322,8 @@ class Sketch {
    * From:
    * https://stackoverflow.com/a/17243070
    *
-   * h, s, v should be 0 to 99 inclusive.
-   * r, g, b returned are between 0 to 255 inclusive.
+   * h, s, v should be floats between 0.0 to 99.0 inclusive.
+   * r, g, b returned are integers between 0 to 255 inclusive.
    *
    * This is not a standard Processing function.
    * Replaces the Processing function colorMode().
@@ -333,9 +333,9 @@ class Sketch {
    * array of length 3.
    */
   HSVtoRGB(h, s, v, ref) {
-    h = (h % 100) / 100
-    s = (s % 100) / 100
-    v = (v % 100) / 100
+    h = this.constrain(h, 0, 99) / 100
+    s = this.constrain(s, 0, 99) / 100
+    v = this.constrain(v, 0, 99) / 100
     const i = Math.floor(h * 6)
     const f = h * 6 - i
     const p = v * (1 - s)
