@@ -6,6 +6,9 @@ s.createP()
 const minSlider = s.createSlider(-2.5, 0, -2.5, 0.01)
 const maxSlider = s.createSlider(0, 2.5, 2.5, 0.01)
 
+// Reduce GC
+const rgbScratch = [0, 0, 0]
+
 s.draw = () => {
   const ca = s.map(s.mouseX, 0, s.width, -1, 1)
   const cb = s.map(s.mouseY, 0, s.height, -1, 1)
@@ -27,16 +30,20 @@ s.draw = () => {
         b = twoab + cb
         n++
       }
-      let bright = s.map(n, 0, maxiterations, 0, 1)
-      bright = s.map(Math.sqrt(bright), 0, 1, 0, 255)
-      if (n === maxiterations) {
-        bright = 0
-      }
       const pix = (x + y * s.width) * 4
-      s.pixels[pix + 0] = bright
-      s.pixels[pix + 1] = bright
-      s.pixels[pix + 2] = bright
-      s.pixels[pix + 3] = 255
+      if (n === maxiterations) {
+        s.pixels[pix + 0] = 0
+        s.pixels[pix + 1] = 0
+        s.pixels[pix + 2] = 0
+        s.pixels[pix + 3] = 255
+      } else {
+        let hue = Math.sqrt(n / maxiterations) * 99
+        s.HSVtoRGB(hue, 99, 99, rgbScratch)
+        s.pixels[pix + 0] = rgbScratch[0]
+        s.pixels[pix + 1] = rgbScratch[1]
+        s.pixels[pix + 2] = rgbScratch[2]
+        s.pixels[pix + 3] = 255
+      }
     }
   }
   s.updatePixels()

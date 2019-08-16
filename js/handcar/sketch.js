@@ -14,6 +14,10 @@ const _VALID_SHAPE_MODES = [DEFAULT, TRIANGLES]
 
 const TWO_PI = Math.PI * 2
 
+// const RGB = 'RGB'
+// const HSV = 'HSV'
+// const _VALID_COLOR_MODES = [RGB, HSV]
+
 function present(x) {
   return x !== undefined && x !== null
 }
@@ -99,6 +103,8 @@ class Sketch {
     this.CLOSE = CLOSE
     this.TRIANGLES = TRIANGLES
     this.TWO_PI = TWO_PI
+    // this.RGB = RGB
+    // this.HSV = HSV
   }
 
   get draw() {
@@ -217,7 +223,7 @@ class Sketch {
     if (_VALID_RECT_MODES.includes(mode)) {
       this._currentRectMode = mode
     } else {
-      throw new Error(new Error(`Invalid mode: ${mode}`))
+      throw new Error(`Invalid mode: ${mode}`)
     }
   }
 
@@ -242,7 +248,7 @@ class Sketch {
     if (_VALID_ELLIPSE_MODES.includes(mode)) {
       this._currentEllipseMode = mode
     } else {
-      throw new Error(new Error(`Invalid mode: ${mode}`))
+      throw new Error(`Invalid mode: ${mode}`)
     }
   }
 
@@ -285,11 +291,50 @@ class Sketch {
   }
 
   color(a, b, c) {
+    // Differs from Processing in that this returns a string,
+    // whereas Processing returns a color object that can be used
+    // to also set pixels.
     a = Math.floor(a)
     b = Math.floor(b)
     c = Math.floor(c)
     // TODO: Handle HSB
     return `#${hexFrom256(a)}${hexFrom256(b)}${hexFrom256(c)}`
+  }
+
+  /**
+   * h, s, v should be 0 to 99 inclusive.
+   * r, g, b returned are between 0 to 255 inclusive.
+   *
+   * This is not a standard Processing function.
+   * Replaces the Processing function colorMode().
+   * Might consider adapting color() to do this.
+   *
+   * Uses a ref to be faster. Ref should be an
+   * array of length 3.
+   *
+   * https://stackoverflow.com/a/17243070
+   */
+  HSVtoRGB(h, s, v, ref) {
+    h = (h % 100) / 100
+    s = (s % 100) / 100
+    v = (v % 100) / 100
+    const i = Math.floor(h * 6)
+    const f = h * 6 - i
+    const p = v * (1 - s)
+    const q = v * (1 - f * s)
+    const t = v * (1 - (1 - f) * s)
+    let r, g, b
+    switch (i % 6) {
+        case 0: r = v, g = t, b = p; break
+        case 1: r = q, g = v, b = p; break
+        case 2: r = p, g = v, b = t; break
+        case 3: r = p, g = q, b = v; break
+        case 4: r = t, g = p, b = v; break
+        case 5: r = v, g = p, b = q; break
+    }
+    ref[0] = Math.round(r * 255)
+    ref[1] = Math.round(g * 255)
+    ref[2] = Math.round(b * 255)
   }
 
   stroke(...args) {
@@ -368,7 +413,7 @@ class Sketch {
       this._currentShapeMode = mode
       this._currentShapeVertexCount = 0
     } else {
-      throw new Error(new Error(`Invalid mode: ${mode}`))
+      throw new Error(`Invalid mode: ${mode}`)
     }
   }
 
@@ -544,6 +589,16 @@ class Sketch {
       }
     }
   }
+
+  // colorMode(mode) {
+  //   // Differs from Processing in that no max values are given as arguments.
+  //   if (_VALID_COLOR_MODES.includes(mode)) {
+  //     this._colorMode = mode
+  //     // TODO: Also, elsewhere update HSV and RGB checks
+  //   } else {
+  //     throw new Error(new Error(`Invalid mode: ${mode}`))
+  //   }
+  // }
 }
 
 // TODO: Use this somewhere? Might need adjustments to mouse position?
