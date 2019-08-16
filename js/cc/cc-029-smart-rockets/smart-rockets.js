@@ -2,6 +2,10 @@ import { Sketch, Vector } from '../../handcar'
 const s = new Sketch()
 s.size(400, 300)
 
+// https://www.youtube.com/watch?v=bGz7mv2vD6g
+// Had to tweak the fitness function to get it to do anything
+// Bad stutter on Firefox Development Edition
+
 let lifespan = 400
 const lifeP = s.createP()
 let count = 0
@@ -12,6 +16,8 @@ const rw = 200
 const rh = 10
 const maxforce = 0.2
 let generation = 0
+
+const maxPossibleD = s.dist(0, 0, s.width, s.height)
 
 class DNA {
   constructor(genes) {
@@ -59,6 +65,7 @@ class Rocket {
     this.crashed = false
     this.dna = dna || new DNA()
     this.fitness = 0
+    this.timeAlive = 0
   }
 
   applyForce(force) {
@@ -66,14 +73,13 @@ class Rocket {
   }
 
   calcFitness() {
-    let d = s.dist(this.pos.x, this.pos.y, target.x, target.y)
-    if (d === 0) d = 0.001 // Prevent div by zero
-    this.fitness = s.map(d, 0, s.width, s.width, 0)
+    const d = s.dist(this.pos.x, this.pos.y, target.x, target.y)
+    this.fitness = s.map(d, 0, maxPossibleD, maxPossibleD, 0)
     if (this.completed) {
-      this.fitness *= 10
+      this.fitness *= 100
     }
     if (this.crashed) {
-      this.fitness /= 10
+      this.fitness /= 100
     }
   }
 
@@ -95,6 +101,7 @@ class Rocket {
     }
     this.applyForce(this.dna.genes[count])
     if (!this.completed && !this.crashed) {
+      this.timeAlive++
       this.vel.add(this.acc)
       this.pos.add(this.vel)
       this.acc.mult(0)
@@ -104,8 +111,6 @@ class Rocket {
 
   show() {
     s.pushMatrix()
-    s.stroke(255, 192)
-    s.fill(255, 128)
     s.translate(this.pos.x, this.pos.y)
     s.rotate(this.vel.heading2D())
     s.beginShape(s.TRIANGLES)
@@ -120,7 +125,7 @@ class Rocket {
 class Population {
   constructor() {
     this.rockets = []
-    this.popsize = 25
+    this.popsize = 250
     for (let i = 0; i < this.popsize; i++) {
       this.rockets.push(new Rocket())
     }
@@ -129,25 +134,27 @@ class Population {
 
   evaluate() {
     let maxfit = 0
-    let sumfit = 0
     for (let rocket of this.rockets) {
       rocket.calcFitness()
-      if (rocket.fitness > maxfit) {
-        maxfit = rocket.fitness
-        sumfit += rocket.fitness
-      }
+      if (rocket.fitness > maxfit) maxfit = rocket.fitness
     }
-    console.log('Generation', generation, 'Average Fitness', Math.floor(sumfit / this.rockets.length))
-    if (maxfit === 0) maxfit = 0.001 // Prevent div by zero
+    if (maxfit === 0) maxfit = 0.001 // prevent div0
     for (let rocket of this.rockets) {
       rocket.fitness /= maxfit
     }
+    maxfit = Math.floor(maxfit)
+    let sumfit = 0
+    this.matingPool = []
     for (let rocket of this.rockets) {
-      const n = Math.floor(rocket.fitness * 100)
+      const n = rocket.fitness * this.popsize * 4
+      sumfit += rocket.fitness
       for (let j = 0; j < n; j++) {
         this.matingPool.push(rocket)
       }
+      // console.log('n', n)
     }
+    const average = sumfit / this.rockets.length
+    console.log('Generation', generation, 'Pool', this.matingPool.length, 'Average', average)
   }
 
   selection() {
@@ -169,16 +176,28 @@ class Population {
       rocket.show()
     }
   }
+
+  noneMoving() {
+    // TODO: Refactor to ES2015
+    for (let rocket of this.rockets) {
+      if (!rocket.completed && !rocket.crashed) {
+        return false
+      }
+    }
+    return true
+  }
 }
 
 let population = new Population()
 
 s.draw = () => {
   s.background(0)
+  s.stroke(255, 192)
+  s.fill(255, 128)
   population.run()
   lifeP.value(count)
   count++
-  if (count === lifespan) {
+  if (count === lifespan || population.noneMoving()) {
     population.evaluate()
     population.selection()
     count = 0
