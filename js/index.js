@@ -1,1 +1,1 @@
-import './cc/cc-022-julia-set/julia-set'
+import './cc/cc-025-fireworks/fireworks'

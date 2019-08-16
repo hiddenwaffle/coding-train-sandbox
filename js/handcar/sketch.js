@@ -208,7 +208,7 @@ class Sketch {
 
   line(x1, y1, x2, y2) {
     this.ctx.beginPath()
-    // Add subpixel for clearer lines... better still doesn't look quite right.
+    // Add subpixel for clearer lines...
     // https://stackoverflow.com/a/13884434
     // https://stackoverflow.com/a/7531540
     this.ctx.scale(1, 1)
@@ -236,11 +236,14 @@ class Sketch {
       top = Math.floor(y - (height / 2))
       left = Math.floor(x - (width / 2))
     }
+    // Add subpixel to remove blur?
+    // https://stackoverflow.com/a/13884434
+    // https://stackoverflow.com/a/7531540
     if (this._fillOn) {
-      this.ctx.fillRect(left, top, width, height)
+      this.ctx.fillRect(left + 0.5, top + 0.5, width, height)
     }
     if (this._strokeOn) {
-      this.ctx.strokeRect(left, top, width, height)
+      this.ctx.strokeRect(left + 0.5, top + 0.5, width, height)
     }
   }
 
@@ -275,11 +278,21 @@ class Sketch {
     }
   }
 
-  point(x, y) {
-    // Processing uses stroke color instead of fill
+  point(px, py) {
+    // Differs from Processing in that rect is used instead of ellipse,
+    // to help with performance.
+    //
+    // Processing uses stroke color instead of fill.
     const tmp = this.ctx.fillStyle
     this.ctx.fillStyle = this.ctx.strokeStyle
-    this.ctx.fillRect(x, y, 1, 1)
+    const w = this.ctx.lineWidth
+    const x = px - Math.floor(w / 2)
+    const y = py - Math.floor(w / 2)
+    this.ctx.fillRect(x, y, w, w)
+    // Commented out round points:
+    // this.ctx.beginPath()
+    // this.ctx.ellipse(x, y, w, w, 0, 0, TWO_PI)
+    // this.ctx.fill()
     this.ctx.fillStyle = tmp
   }
 
@@ -290,18 +303,25 @@ class Sketch {
     this.ctx.restore()
   }
 
-  color(a, b, c) {
+  color(a, b, c, d=255) {
     // Differs from Processing in that this returns a string,
     // whereas Processing returns a color object that can be used
     // to also set pixels.
     a = Math.floor(a)
     b = Math.floor(b)
     c = Math.floor(c)
-    // TODO: Handle HSB
-    return `#${hexFrom256(a)}${hexFrom256(b)}${hexFrom256(c)}`
+    d = Math.floor(d)
+    if (present(d)) {
+      return `#${hexFrom256(a)}${hexFrom256(b)}${hexFrom256(c)}${hexFrom256(d)}`
+    } else {
+      return `#${hexFrom256(a)}${hexFrom256(b)}${hexFrom256(c)}`
+    }
   }
 
   /**
+   * From:
+   * https://stackoverflow.com/a/17243070
+   *
    * h, s, v should be 0 to 99 inclusive.
    * r, g, b returned are between 0 to 255 inclusive.
    *
@@ -311,8 +331,6 @@ class Sketch {
    *
    * Uses a ref to be faster. Ref should be an
    * array of length 3.
-   *
-   * https://stackoverflow.com/a/17243070
    */
   HSVtoRGB(h, s, v, ref) {
     h = (h % 100) / 100
@@ -380,6 +398,9 @@ class Sketch {
   noFill() {
     this._fillOn = false
   }
+
+  // TODO: randomSeed()
+  // http://davidbau.com/archives/2010/01/30/random_seeds_coded_hints_and_quintillions.html
 
   random(a, b) {
     let min, max
