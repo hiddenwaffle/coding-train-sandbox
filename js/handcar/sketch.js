@@ -554,15 +554,19 @@ class Sketch {
   }
 
   loadPixels() {
+    // Differs from Processing in that they are just plain Canvas operations.
     this._capturedImageData = this.ctx.getImageData(0, 0, this.canvas.width, this.canvas.height)
     this._pixels = this._capturedImageData.data
   }
 
   get pixels() {
+    // Differs from Processing in that they are just plain Canvas operations.
+    // Must to multiply by 4 to get correct index.
     return this._pixels
   }
 
   updatePixels() {
+    // Differs from Processing in that they are just plain Canvas operations.
     this.ctx.putImageData(this._capturedImageData, 0, 0)
   }
 

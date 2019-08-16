@@ -1,1 +1,1 @@
-import './cc/cc-025-fireworks/fireworks'
+import './cc/cc-026-metaballs/metaballs'
