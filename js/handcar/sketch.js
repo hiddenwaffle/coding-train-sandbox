@@ -14,10 +14,6 @@ const _VALID_SHAPE_MODES = [DEFAULT, TRIANGLES]
 
 const TWO_PI = Math.PI * 2
 
-// const RGB = 'RGB'
-// const HSV = 'HSV'
-// const _VALID_COLOR_MODES = [RGB, HSV]
-
 function present(x) {
   return x !== undefined && x !== null
 }
@@ -105,6 +101,14 @@ class Sketch {
     this.TWO_PI = TWO_PI
     // this.RGB = RGB
     // this.HSV = HSV
+    // Math shortcuts -----------------------------------------------------//
+    this.sin = Math.sin
+    this.cos = Math.cos
+    this.atan2 = Math.atan2
+    this.floor = Math.floor
+    this.PI = Math.PI // see also: TWO_PI
+    this.sqrt = Math.sqrt
+    this.pow = Math.pow
   }
 
   get draw() {
@@ -639,6 +643,13 @@ class Sketch {
   //     throw new Error(new Error(`Invalid mode: ${mode}`))
   //   }
   // }
+
+  /**
+   * current is a value between 0.0 and 1.0
+   */
+  lerp(start, end, current) {
+    return start + (end - start) * current
+  }
 }
 
 // TODO: Use this somewhere? Might need adjustments to mouse position?

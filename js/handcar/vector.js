@@ -66,6 +66,15 @@ class Vector {
     this.x = this.x * Math.cos(a) - this.y * Math.sin(a)
     this.y = xTemp * Math.sin(a) + this.y * Math.cos(a)
   }
+
+  /**
+   * current is a value between 0.0 and 1.0
+   */
+  lerp(end, current) {
+    // Matches lerp() in Sketch:
+    this.x = this.x + (end.x - this.x) * current
+    this.y = this.y + (end.y - this.y) * current
+  }
 }
 
 Vector.add = function (v1, v2) {

@@ -1,1 +1,1 @@
-import './cc/cc-032-agar.io/agar.io'
+import './cc/cc-033-poisson-disc-sampling/poisson-disc-sampling'
