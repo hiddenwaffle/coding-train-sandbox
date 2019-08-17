@@ -555,6 +555,8 @@ class Sketch {
   }
 
   radians(degrees) {
+    // Different from Processing in that this is used
+    // instead of angleMode()
     return degrees * (Math.PI / 180)
   }
 
