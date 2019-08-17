@@ -1,1 +1,1 @@
-import './cc/cc-033-poisson-disc-sampling/poisson-disc-sampling'
+import './cc/cc-034-diffusion-limited-aggregation/diffusion-limited-aggregation'
