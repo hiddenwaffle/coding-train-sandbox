@@ -416,7 +416,7 @@ class Sketch {
       if (a.length === 0) {
         return null
       } else {
-        return a[Math.floor(this.random(0, a.length - 1))]
+        return a[Math.floor(this.random(0, a.length))]
       }
     } else {
       let min, max
