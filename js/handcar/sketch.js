@@ -302,8 +302,10 @@ class Sketch {
 
   background(...args) {
     this.ctx.save()
+    const fillOnPrev = this._fillOn // Assumes that fill() sets only this in addition to the style
     this.fill(...args)
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height)
+    this._fillOn = fillOnPrev
     this.ctx.restore()
   }
 
@@ -657,6 +659,14 @@ class Sketch {
 
   text(str, x, y) {
     this.ctx.fillText(str, x, y)
+  }
+
+  triangle(x1, y1, x2, y2, x3, y3) {
+    this.beginShape()
+    this.vertex(x1, y1)
+    this.vertex(x2, y2)
+    this.vertex(x3, y3)
+    this.endShape(CLOSE)
   }
 }
 

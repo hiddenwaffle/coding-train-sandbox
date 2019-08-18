@@ -1,1 +1,1 @@
-import './cc/cc-036-blobby/blobby'
+import './cc/cc-046-asteroids/asteroids'
