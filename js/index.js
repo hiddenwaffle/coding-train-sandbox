@@ -1,1 +1,1 @@
-import './cc/cc-050-circle-packing/circle-packing'
+import './cc/cc-051-a-star/a-star'
