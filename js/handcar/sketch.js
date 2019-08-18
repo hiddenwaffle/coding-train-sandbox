@@ -109,6 +109,7 @@ class Sketch {
     this.PI = Math.PI // see also: TWO_PI
     this.sqrt = Math.sqrt
     this.pow = Math.pow
+    this.abs = Math.abs
   }
 
   get draw() {
