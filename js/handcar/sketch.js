@@ -650,6 +650,14 @@ class Sketch {
   lerp(start, end, current) {
     return start + (end - start) * current
   }
+
+  textSize(n) {
+    this.ctx.font = `${n}px sans-serif`
+  }
+
+  text(str, x, y) {
+    this.ctx.fillText(str, x, y)
+  }
 }
 
 // TODO: Use this somewhere? Might need adjustments to mouse position?
