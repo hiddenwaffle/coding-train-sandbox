@@ -1,1 +1,1 @@
-import './cc/cc-046-asteroids/asteroids'
+import './cc/cc-050-circle-packing/circle-packing'
