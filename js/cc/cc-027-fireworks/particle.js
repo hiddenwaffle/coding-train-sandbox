@@ -10,7 +10,7 @@ export class Particle {
     this.vel = vel
     this.acc = new Vector()
     this.size = size
-    s.HSVtoRGB(hue, 99, 99, rgb)
+    s.HSVtoRGB(hue, 1, 1, rgb)
     this.r = rgb[0]
     this.g = rgb[1]
     this.b = rgb[2]

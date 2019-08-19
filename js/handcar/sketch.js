@@ -329,7 +329,10 @@ class Sketch {
    * From:
    * https://stackoverflow.com/a/17243070
    *
-   * h, s, v should be floats between 0.0 to 99.0 inclusive.
+   * h - hue range is [0, 360]
+   * s - saturation is [0, 1]
+   * v - value is [0, 1]
+   *
    * r, g, b returned are integers between 0 to 255 inclusive.
    *
    * This is not a standard Processing function.
@@ -340,9 +343,9 @@ class Sketch {
    * array of length 3.
    */
   HSVtoRGB(h, s, v, ref) {
-    h = this.constrain(h, 0, 99) / 100
-    s = this.constrain(s, 0, 99) / 100
-    v = this.constrain(v, 0, 99) / 100
+    h = this.constrain(h, 0, 360) / 360
+    s = this.constrain(s, 0, 1)
+    v = this.constrain(v, 0, 1)
     const i = Math.floor(h * 6)
     const f = h * 6 - i
     const p = v * (1 - s)

@@ -14,7 +14,7 @@ s.draw = () => {
   const r = c * Math.sqrt(n)
   const x = r * Math.cos(a) + s.width / 2
   const y = r * Math.sin(a) + s.height / 2
-  s.HSVtoRGB(55, 99, a % 100, rgb)
+  s.HSVtoRGB(198, 1, (a % 100) / 100, rgb)
   s.fill(rgb[0], rgb[1], rgb[2])
   s.noStroke()
   s.ellipse(x, y, 4, 4)

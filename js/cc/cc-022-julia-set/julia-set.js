@@ -37,8 +37,8 @@ s.draw = () => {
         s.pixels[pix + 2] = 0
         s.pixels[pix + 3] = 255
       } else {
-        let hue = Math.sqrt(n / maxiterations) * 99
-        s.HSVtoRGB(hue, 99, 99, rgbScratch)
+        let hue = Math.floor(Math.sqrt(n / maxiterations) * 361)
+        s.HSVtoRGB(hue, 1, 1, rgbScratch)
         s.pixels[pix + 0] = rgbScratch[0]
         s.pixels[pix + 1] = rgbScratch[1]
         s.pixels[pix + 2] = rgbScratch[2]

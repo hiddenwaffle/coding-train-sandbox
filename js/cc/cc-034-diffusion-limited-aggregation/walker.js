@@ -1,7 +1,7 @@
 import { s, r } from './diffusion-limited-aggregation'
 import { Vector } from '../../handcar'
 
-let colorIndex = 55
+let colorIndex = 198
 const rgb = [0, 0, 0]
 
 export class Walker {
@@ -29,7 +29,7 @@ export class Walker {
       const d = distSq(this.pos, other.pos)
       if (d < r * 10) {
         colorIndex += 0.1
-        this.hue = colorIndex % 100
+        this.hue = colorIndex % 361
         this.stuck = true
       }
     }
@@ -39,7 +39,7 @@ export class Walker {
   show() {
     s.stroke(255, 100)
     if (this.stuck) {
-      s.HSVtoRGB(this.hue, 99, 99, rgb)
+      s.HSVtoRGB(this.hue, 1, 1, rgb)
       s.fill(rgb[0], rgb[1], rgb[2], 128)
     } else {
       s.fill(255, 100)

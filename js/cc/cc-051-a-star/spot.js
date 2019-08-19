@@ -9,10 +9,15 @@ export class Spot {
     this.h = 0
     this.neighbors = new Set()
     this.previous = null
+    this.wall = s.random(1) < 0.3
   }
 
   show(col) {
-    s.fill(col)
+    if (this.wall) {
+      s.fill(0)
+    } else {
+      s.fill(col)
+    }
     s.noStroke()
     s.rect(this.i * w, this.j * h, w, h)
   }

@@ -77,7 +77,7 @@ s.draw = () => {
   }
   let a = 0
   for (let p of ordered) {
-    s.HSVtoRGB(a % 100, 99, 99, rgb)
+    s.HSVtoRGB(a % 361, 1, 1, rgb)
     s.stroke(rgb[0], rgb[1], rgb[2])
     s.point(p.x, p.y)
     a++

@@ -6,7 +6,7 @@ const gravity = new Vector(0, 0.1)
 
 export class Firework {
   constructor(x, y) {
-    this.hue = Math.floor(s.random(100))
+    this.hue = Math.floor(s.random(361))
     this.main = new Particle(x, y, new Vector(s.random(-0.1, 0.1),
                                               s.random(-9, -4)),
                                    4,

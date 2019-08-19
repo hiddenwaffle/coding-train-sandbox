@@ -26,13 +26,15 @@ for (let i = 0; i < cols; i++) {
 }
 
 const start = grid[0][0]
+start.wall = false
 const end = grid[cols - 1][rows - 1]
+end.wall = false
 
 openSet.add(start)
 
 function heuristic(a, b) {
-  // return s.dist(a.i, a.j, b.i, b.j)
-  return s.abs(a.i - b.i) + s.abs(a.j - a.j)
+  return s.dist(a.i, a.j, b.i, b.j)
+  // return s.abs(a.i - b.i) + s.abs(a.j - a.j)
 }
 
 s.draw = () => {
@@ -58,11 +60,12 @@ s.draw = () => {
     }
     if (current === end) {
       console.log('Done')
+      s.noLoop()
     } else {
       openSet.delete(current)
       closedSet.add(current)
       for (let neighbor of current.neighbors.values()) {
-        if (!closedSet.has(neighbor)) { // TODO: or wall
+        if (!closedSet.has(neighbor) && !neighbor.wall) {
           const tempG = current.g + 1
           let newPath = false
           if (openSet.has(neighbor)) {

@@ -25,8 +25,8 @@ s.draw = () => {
         const d = s.dist(x, y, blob.pos.x, blob.pos.y)
         sum += 100 * blob.r / d
       }
-      sum = s.constrain(sum, 0, 367) // distance from 0, 0 to 320, 180
-      s.HSVtoRGB(sum, 99, 99, rgb)
+      sum = s.map(sum, 0, 367, 0, 360) // 367 is the distance from 0, 0 to 320, 180
+      s.HSVtoRGB(sum, 1, 1, rgb)
       s.pixels[index + 0] = rgb[0]
       s.pixels[index + 1] = rgb[1]
       s.pixels[index + 2] = rgb[2]

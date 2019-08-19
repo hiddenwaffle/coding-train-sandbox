@@ -1,1 +1,1 @@
-import './cc/cc-051-a-star/a-star'
+import './cc/cc-054-islamic-star-patterns/islamic-star-patterns'
