@@ -31,6 +31,13 @@ export class Polygon {
     for (let edge of this.edges) {
       edge.hankin()
     }
+    for (let edgea of this.edges) {
+      for (let edgeb of this.edges) {
+        if (edgea !== edgeb) {
+          edgea.findEnds(edgeb)
+        }
+      }
+    }
   }
 
   show() {

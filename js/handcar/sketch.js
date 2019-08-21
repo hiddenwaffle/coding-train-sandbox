@@ -616,7 +616,7 @@ class Sketch {
   createP(initial) {
     const element = document.createElement('p')
     this.canvas.parentElement.appendChild(element)
-    element.textContent = initial
+    element.textContent = initial || ''
     return {
       value(value) {
         if (value != undefined) {

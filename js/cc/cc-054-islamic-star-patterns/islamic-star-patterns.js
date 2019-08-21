@@ -2,20 +2,38 @@ import { Sketch } from '../../handcar'
 import { Polygon } from './polygon'
 export const s = new Sketch()
 
-// Bookmark at 32:55
 // https://www.youtube.com/watch?v=sJ6pMLp_IaI
 
 export let angle = 60
+export let delta = 10
+
+s.createP()
+const deltaSlider = s.createSlider(0, 25, 1)
+const angleSlider = s.createSlider(0, 90, 60)
 
 s.size(400, 400)
 
-s.background(51)
+const polys = []
 
-const poly = new Polygon()
-poly.addVertex(100, 100)
-poly.addVertex(200, 100)
-poly.addVertex(200, 200)
-poly.addVertex(100, 200)
-poly.close()
-poly.hankin()
-poly.show()
+const inc = 100
+for (let x = 0; x < s.width; x += inc) {
+  for (let y = 0; y < s.height; y += inc) {
+    const poly = new Polygon()
+    poly.addVertex(x, y)
+    poly.addVertex(x + inc, y)
+    poly.addVertex(x + inc, y + inc)
+    poly.addVertex(x, y + inc)
+    poly.close()
+    polys.push(poly)
+  }
+}
+
+s.draw = () => {
+  s.background(51)
+  angle = angleSlider.value()
+  delta = deltaSlider.value()
+  for (let poly of polys) {
+    poly.hankin()
+    poly.show()
+  }
+}
