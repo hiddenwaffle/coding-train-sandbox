@@ -11,7 +11,7 @@ export class Hankin {
   }
 
   show() {
-    s.stroke(255, 0, 255)
+    s.stroke(128, 192, 255)
     s.line(this.a.x, this.a.y, this.end.x, this.end.y)
   }
 
