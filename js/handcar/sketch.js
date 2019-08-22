@@ -49,11 +49,13 @@ class Sketch {
     window.addEventListener('mousemove', (event) => {
       this._captureMousePosition()
     })
-    window.addEventListener('mousedown', () => {
+    window.addEventListener('mousedown', (event) => {
       this._captureMousePosition()
       if (!this._isMousePressed) {
         this._isMousePressed = true
-        this._mousePressedFn()
+        // Differs from Processing in that the mouse button is given to the fn
+        // https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button#Return_value
+        this._mousePressedFn(event.button)
       }
     })
     window.addEventListener('mouseup', () => {
@@ -99,8 +101,6 @@ class Sketch {
     this.CLOSE = CLOSE
     this.TRIANGLES = TRIANGLES
     this.TWO_PI = TWO_PI
-    // this.RGB = RGB
-    // this.HSV = HSV
     // Math shortcuts -----------------------------------------------------//
     this.sin = Math.sin
     this.cos = Math.cos
@@ -110,6 +110,13 @@ class Sketch {
     this.sqrt = Math.sqrt
     this.pow = Math.pow
     this.abs = Math.abs
+    // Other Enumerations -------------------------------------------------//
+    // https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button#Return_value
+    this.MOUSE_BUTTON_MAIN  = 0 // usually left
+    this.MOUSE_BUTTON_AUX   = 1 // usually middle / wheel
+    this.MOUSE_BUTTON_2ND   = 2 // usually right
+    this.MOUSE_BUTTON_BACK  = 3 // usually back button
+    this.MOUSE_BUTTON_FWD   = 4 // usually forward button
   }
 
   get draw() {
