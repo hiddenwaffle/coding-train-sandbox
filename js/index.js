@@ -1,1 +1,1 @@
-import './cc/cc-054-islamic-star-patterns/islamic-star-patterns'
+import './cc/cc-056-attraction-and-repulsion/attraction-and-repulsion'
