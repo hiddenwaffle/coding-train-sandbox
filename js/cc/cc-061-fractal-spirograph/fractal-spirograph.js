@@ -19,6 +19,9 @@ s.draw = () => {
   for (let _ = 0; _ < resolution; _++) {
     sun.update()
     path.push(new Vector(end.x, end.y))
+    if (path.length > 4000) { // TODO: Base off of resolution?
+      path.splice(0, 1)
+    }
   }
   sun.show()
   s.stroke(96, 192, 255)
@@ -28,7 +31,4 @@ s.draw = () => {
     s.vertex(pos.x, pos.y)
   }
   s.endShape()
-  if (path.length > 2000) { // TODO: Base off of resolution?
-    path.splice(0, 1)
-  }
 }
