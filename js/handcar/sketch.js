@@ -107,6 +107,7 @@ class Sketch {
     this.atan2 = Math.atan2
     this.floor = Math.floor
     this.PI = Math.PI // see also: TWO_PI
+    this.E = Math.E
     this.sqrt = Math.sqrt
     this.pow = Math.pow
     this.abs = Math.abs
