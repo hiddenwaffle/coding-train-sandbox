@@ -48,6 +48,11 @@ class Sketch {
     // Mouse Setup --------------------------------------------------------//
     window.addEventListener('mousemove', (event) => {
       this._captureMousePosition()
+      if (this._isMousePressed) {
+        this._mouseDraggedFn()
+      } else {
+        // TODO: Call mouseMoved() function, when it is implemented
+      }
     })
     window.addEventListener('mousedown', (event) => {
       this._captureMousePosition()
@@ -70,6 +75,7 @@ class Sketch {
     this._mousePressedFn = () => { } // no-op
     this._isMousePressed = false
     this._mouseReleasedFn = () => { } // no-op
+    this._mouseDraggedFn = () => { } // no-op
     // Keyboard Setup --------------------------------------------------------//
     // Uses lowercase versions of these strings:
     // https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values
@@ -169,6 +175,10 @@ class Sketch {
 
   set mouseReleased(fn) {
     this._mouseReleasedFn = fn
+  }
+
+  set mouseDragged(fn) {
+    this._mouseDraggedFn = fn
   }
 
   get keyPressed() {

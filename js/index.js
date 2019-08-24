@@ -1,1 +1,1 @@
-import './cc/cc-064-kinematics/fixed-point'
+import './cc/cc-102-2d-water-ripples/2d-water-ripples'
