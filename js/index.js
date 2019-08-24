@@ -1,1 +1,1 @@
-import './cc/cc-102-2d-water-ripples/2d-water-ripples'
+import './cc/cc-103-fire-effect/fire-effect'
