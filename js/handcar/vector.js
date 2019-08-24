@@ -1,3 +1,7 @@
+function present(x) {
+  return x !== undefined && x !== null
+}
+
 class Vector {
   constructor(x, y) {
     this.x = x || 0
@@ -53,9 +57,18 @@ class Vector {
     return new Vector(this.x, this.y)
   }
 
-  copyToRef(ref) {
-    ref.x = this.x
-    ref.y = this.y
+  /**
+   * a is either a vector or the x component
+   * b is the y component if the a is an x component
+   */
+  set(a, b) {
+    if (present(a) && present(b)) {
+      this.x = a
+      this.y = b
+    } else {
+      this.x = a.x
+      this.y = a.y
+    }
   }
 
   heading2D() {

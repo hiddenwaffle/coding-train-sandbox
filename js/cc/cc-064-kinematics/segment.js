@@ -39,7 +39,7 @@ export class Segment {
   update(parentA, parentAngle) {
     this.angle = this.selfAngle
     if (parentA) {
-      parentA.copyToRef(this.a)
+      this.a.set(parentA)
     }
     if (parentAngle) {
       this.angle += parentAngle
