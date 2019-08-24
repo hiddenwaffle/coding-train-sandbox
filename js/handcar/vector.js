@@ -53,6 +53,11 @@ class Vector {
     return new Vector(this.x, this.y)
   }
 
+  copyToRef(ref) {
+    ref.x = this.x
+    ref.y = this.y
+  }
+
   heading2D() {
     return Math.atan2(this.y, this.x)
   }

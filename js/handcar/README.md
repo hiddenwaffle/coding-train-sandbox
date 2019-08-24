@@ -2,7 +2,7 @@
 
 * Inspired by the Nature of Code book and the sketch-related videos on the Coding Train YouTube channel.
 
-* The API design is based on Processing, p5.js, and Quil. Influenced by PICO-8.
+* The API design is based on Processing, p5.js, Quil, and Babylon.js, and PICO-8.
     * Intended to be a light, 2D-only, canvas-based library subset of these frameworks.
 
 ## Licenses

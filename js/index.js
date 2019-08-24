@@ -1,1 +1,1 @@
-import './cc/cc-061-fractal-spirograph/fractal-spirograph'
+import './cc/cc-064-kinematics/forward-kinematics'
