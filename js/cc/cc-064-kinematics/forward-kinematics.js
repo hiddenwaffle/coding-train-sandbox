@@ -1,7 +1,7 @@
 import { Sketch, Vector } from '../../handcar'
 import { Segment } from './segment'
 export const s = new Sketch()
-s.size(600, 400)
+s.size(600, 200)
 
 const tentacles = []
 for (let x = 0; x < s.width; x += 10) {

@@ -16,7 +16,7 @@ export class Segment {
     if (!this.child) {
       this.child = new Segment(this.b.x, this.b.y, len, angle)
     } else {
-      this.child.chain(len, angle)
+      this.child.chain(len * 0.95, angle)
     }
   }
 
@@ -54,8 +54,8 @@ export class Segment {
   }
 
   show() {
-    s.stroke(255, 100)
-    s.strokeWeight(4)
+    s.stroke(128, 192, 255, 128)
+    s.strokeWeight(this.len)
     s.line(this.a.x, this.a.y, this.b.x, this.b.y)
     if (this.child) {
       this.child.show()
