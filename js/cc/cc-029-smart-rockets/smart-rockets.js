@@ -112,7 +112,7 @@ class Rocket {
   show() {
     s.pushMatrix()
     s.translate(this.pos.x, this.pos.y)
-    s.rotate(this.vel.heading2D())
+    s.rotate(this.vel.heading())
     s.beginShape(s.TRIANGLES)
     s.vertex(7.5, 0)
     s.vertex(-7.5, -5)

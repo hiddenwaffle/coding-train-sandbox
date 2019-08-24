@@ -41,7 +41,7 @@ class Vehicle {
   }
 
   display() {
-    const theta = this.velocity.heading2D() + q.radians(90)
+    const theta = this.velocity.heading() + q.radians(90)
     q.fill(175)
     q.stroke(0)
     q.strokeWeight(1)
@@ -102,7 +102,7 @@ class FlowField {
     q.pushMatrix()
     q.translate(x, y)
     q.stroke(0, 100)
-    q.rotate(v.heading2D())
+    q.rotate(v.heading())
     const len = v.mag() * scale
     q.line(0, 0, len, 0)
     q.popMatrix()

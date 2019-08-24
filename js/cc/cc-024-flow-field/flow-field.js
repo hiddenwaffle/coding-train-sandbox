@@ -29,7 +29,7 @@ s.draw = () => {
       // s.stroke(0, 100)
       // s.pushMatrix()
       // s.translate(x * scl, y * scl)
-      // s.rotate(v.heading2D())
+      // s.rotate(v.heading())
       // s.line(0, 0, scl, 0)
       // s.popMatrix()
     }

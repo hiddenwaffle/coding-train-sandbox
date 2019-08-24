@@ -71,7 +71,7 @@ class Vector {
     }
   }
 
-  heading2D() {
+  heading() {
     return Math.atan2(this.y, this.x)
   }
 

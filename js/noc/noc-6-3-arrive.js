@@ -41,7 +41,7 @@ class Vehicle {
   }
 
   display() {
-    const theta = this.velocity.heading2D() + Math.PI / 2
+    const theta = this.velocity.heading() + Math.PI / 2
     q.fill(127)
     q.stroke(0)
     q.strokeWeight(1)

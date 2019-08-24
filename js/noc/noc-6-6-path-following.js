@@ -94,7 +94,7 @@ class Vehicle {
   }
 
   display() {
-    const theta = this.velocity.heading2D() + q.radians(90)
+    const theta = this.velocity.heading() + q.radians(90)
     q.fill(175)
     q.stroke(0)
     q.pushMatrix()
