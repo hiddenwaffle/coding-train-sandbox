@@ -1,5 +1,5 @@
 import { Vector } from '../../handcar'
-import { s } from './inverse-kinematics-2'
+import { s } from './fixed-point'
 
 export class Segment {
   constructor(x, y, len, i) { // expects i to be 1 to 20

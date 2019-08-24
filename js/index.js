@@ -1,1 +1,1 @@
-import './cc/cc-064-kinematics/inverse-kinematics-2'
+import './cc/cc-064-kinematics/fixed-point'
