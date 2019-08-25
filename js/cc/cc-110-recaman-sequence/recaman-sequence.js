@@ -4,7 +4,7 @@ export const s = new Sketch()
 s.size(800, 480)
 
 // https://www.youtube.com/watch?v=DhFZfzOvNTU
-// Skipping the part 2for musical notes
+// Skipping the part 2 for musical notes
 
 const numbers = []
 let count = 1

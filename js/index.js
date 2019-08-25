@@ -1,1 +1,1 @@
-import './cc/cc-110-recaman-sequence/recaman-sequence'
+import './cc/cc-107-sandpiles/sandpiles'
