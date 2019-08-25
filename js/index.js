@@ -1,1 +1,1 @@
-import './cc/cc-102-2d-water-ripples/2d-water-ripples'
+import './cc/cc-108-barnsley-fern/barnsley-fern'
