@@ -1,1 +1,1 @@
-import './cc/cc-107-sandpiles/sandpiles'
+import './cc/cc-089-langtons-ant/langtons-ant'
