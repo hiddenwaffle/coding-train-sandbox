@@ -117,6 +117,8 @@ class Sketch {
     this.sqrt = Math.sqrt
     this.pow = Math.pow
     this.abs = Math.abs
+    this.min = Math.min
+    this.max = Math.max
     // Other Enumerations -------------------------------------------------//
     // https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button#Return_value
     this.MOUSE_BUTTON_MAIN  = 0 // usually left
