@@ -1,1 +1,1 @@
-import './cc/cc-108-barnsley-fern/barnsley-fern'
+import './cc/cc-110-recaman-sequence/recaman-sequence'
