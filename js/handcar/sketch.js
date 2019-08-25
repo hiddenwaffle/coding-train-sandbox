@@ -278,7 +278,13 @@ class Sketch {
     }
   }
 
-  ellipse(px, py, pw, ph) {
+  ellipse(px, py, pw, ph=pw) {
+    this.arc(px, py, pw, ph, 0, TWO_PI)
+  }
+
+  arc(px, py, pw, ph, start, stop) {
+    if (pw < 0) pw *= -1 // a p5 thing... Processing just acts like it is 0
+    if (ph < 0) ph *= -1 // a p5 thing... Processing just acts like it is 0
     let x, y, rw, rh
     if (this._currentEllipseMode === CENTER) {
       x = px
@@ -292,7 +298,7 @@ class Sketch {
       rh = ph
     }
     this.ctx.beginPath()
-    this.ctx.ellipse(x, y, rw, rh, 0, 0, TWO_PI)
+    this.ctx.ellipse(x, y, rw, rh, 0, start, stop)
     if (this._fillOn) {
       this.ctx.fill()
     }
@@ -320,6 +326,7 @@ class Sketch {
   }
 
   background(...args) {
+    // TODO: Fix this so it works after translate()
     this.ctx.save()
     const fillOnPrev = this._fillOn // Assumes that fill() sets only this in addition to the style
     this.fill(...args)
