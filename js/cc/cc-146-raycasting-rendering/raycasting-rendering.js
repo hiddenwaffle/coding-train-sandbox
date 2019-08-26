@@ -32,20 +32,20 @@ s.draw = () => {
   scene = particle.look(walls)
 }
 
-const furthestPossible = view.dist(0, 0, view.width, view.height)
-
 view.rectMode(view.CENTER)
+const maxDistSq = view.width * view.height
 view.draw = () => {
   view.background(32)
   const w = view.width / scene.length
   for (let i = 0; i < scene.length; i++) {
     view.noStroke()
-    const b = view.map(scene[i], 0, furthestPossible, 255, 0)
-    view.fill(b)
+    const sq = scene[i] * scene[i]
+    const b = view.map(sq, 0, maxDistSq, 255, 0)
     const h = view.map(scene[i], 0, view.width, view.height, 0)
+    view.fill(b)
     view.rect(i * w + w / 2,
               view.height / 2,
-              w,
+              w + 1,
               h)
   }
 }

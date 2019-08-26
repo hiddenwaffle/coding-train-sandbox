@@ -8,7 +8,7 @@ export class Particle {
   constructor() {
     this.pos = new Vector(s.width / 2, s.height / 2)
     this.rays = []
-    for (let a = 0; a < POV; a += 1) {
+    for (let a = -POV / 2; a < POV / 2; a += 1) {
       this.rays.push(new Ray(this.pos, s.radians(a)))
     }
     this.heading = 0
@@ -16,22 +16,21 @@ export class Particle {
 
   rotate(angle) {
     this.heading += angle
-    for (let i = 0; i < POV; i++) {
-      const ray = this.rays[i]
-      ray.setAngle(s.radians(i + this.heading))
+    for (let a = -POV / 2; a < POV / 2; a += 1) {
+      const index = a + POV / 2 // Because array start at zero
+      const ray = this.rays[index]
+      ray.setAngle(s.radians(a + this.heading))
     }
   }
 
   forward(velocity) {
-    // The "POV / 2" is because the heading is not centered,
-    // which is good enough for this sketch.
-    const diff = Vector.fromAngle(s.radians(this.heading + POV / 2))
+    const diff = Vector.fromAngle(s.radians(this.heading))
     diff.mult(velocity)
     this.pos.add(diff)
-    if (this.pos.x < 0 || this.pos.x >= s.width ||
-        this.pos.y < 0 || this.pos.y >= s.height) {
-      this.pos.sub(diff) // undo if out of bounds
-    }
+    if (this.pos.x < 1) this.pos.x = 1
+    if (this.pos.x > s.width - 1) this.pos.x = s.width - 2
+    if (this.pos.y < 1) this.pos.y = 1
+    if (this.pos.y > s.height - 1) this.pos.y = s.height - 2
   }
 
   // TODO: unused?
@@ -51,6 +50,11 @@ export class Particle {
         const pt = ray.cast(wall)
         if (pt) {
           const d = Vector.dist(this.pos, pt)
+          const a = ray.dir.heading() - this.heading
+          let dproj = d * s.cos(a)
+          if (dproj === 0) {
+            dproj = d // TODO: Not sure why I have to do this; the video does not.
+          }
           if (d < record) {
             record = d
             closest = pt
