@@ -261,11 +261,17 @@ class Sketch {
       top = Math.floor(y - (height / 2))
       left = Math.floor(x - (width / 2))
     }
-    // Add subpixel to remove blur?
+    // Use of + 0.5 to add subpixel, removes line blur?
     // https://stackoverflow.com/a/13884434
     // https://stackoverflow.com/a/7531540
     if (this._fillOn) {
-      this.ctx.fillRect(left + 0.5, top + 0.5, width, height)
+      if (this._strokeOn) {
+        this.ctx.fillRect(left + 0.5, top + 0.5, width, height)
+      } else {
+        // Without stroke, line things up without subpixel to prevent cracks...
+        // (Just guessing... might need to fix all this)
+        this.ctx.fillRect(left, top, width, height)
+      }
     }
     if (this._strokeOn) {
       this.ctx.strokeRect(left + 0.5, top + 0.5, width, height)
