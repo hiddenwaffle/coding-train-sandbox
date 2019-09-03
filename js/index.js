@@ -1,1 +1,1 @@
-import './cc/cc-127-brownian-tree-snowflake/brownian-tree-snowflake'
+import './cc/cc-126-toothpicks/toothpicks'
