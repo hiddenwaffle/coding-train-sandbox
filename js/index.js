@@ -1,1 +1,1 @@
-import './cc/cc-126-toothpicks/toothpicks'
+import './cc/cc-149-tic-tac-toe/tic-tac-toe'
