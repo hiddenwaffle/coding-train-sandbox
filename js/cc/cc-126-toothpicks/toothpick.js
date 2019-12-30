@@ -3,6 +3,7 @@ import { s, len } from './toothpicks'
 export class Toothpick {
   constructor(x, y, d) {
     this.dir = d
+    this.newPick = true
     if (this.dir === 1) {
       this.ax = x - len / 2
       this.bx = x + len / 2
@@ -56,9 +57,13 @@ export class Toothpick {
     }
   }
 
-  show() {
-    s.stroke(0)
-    s.strokeWeight(2)
+  show(factor) {
+    if (this.newPick) {
+      s.stroke(0, 0, 255)
+    } else {
+      s.stroke(0)
+    }
+    s.strokeWeight(1 / factor)
     s.line(this.ax, this.ay, this.bx, this.by)
   }
 }
