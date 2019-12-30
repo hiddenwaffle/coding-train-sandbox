@@ -642,6 +642,10 @@ class Sketch {
           element.value = value
         }
         return parseFloat(element.value)
+      },
+      style(name, value) {
+        element.style[name] = value
+        return this
       }
     }
   }
@@ -656,6 +660,10 @@ class Sketch {
           element.textContent = value
         }
         return element.textContent
+      },
+      style(name, value) {
+        element.style[name] = value
+        return this
       }
     }
   }
