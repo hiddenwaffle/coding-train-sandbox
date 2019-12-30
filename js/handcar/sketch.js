@@ -141,7 +141,7 @@ class Sketch {
       cancelAnimationFrame(this._animationFrameId)
     }
     this._drawFn = fn
-    this._noLoop = false
+    this._noLoop = false // Differs from Processing - reverses a noLoop() if it was called prior to setting draw (call noLoop() in draw() instead)
     const loop = (time) => {
       this._animationFrameId = requestAnimationFrame(loop)
       this._keyPressedFn(this._keys) // Not really drawing but needs to be here...
