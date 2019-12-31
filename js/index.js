@@ -1,1 +1,1 @@
-import './cc/cc-155-kaleidoscope-snowflake/kaleidoscope-snowflake'
+import './cabana/cabana-001-maurer-rose/maurer-rose'
