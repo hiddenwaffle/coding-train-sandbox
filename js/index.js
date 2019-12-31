@@ -1,1 +1,1 @@
-import './cc/cc-126-toothpicks/toothpicks'
+import './cc/cc-155-kaleidoscope-snowflake/kaleidoscope-snowflake'
