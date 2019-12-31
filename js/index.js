@@ -1,1 +1,1 @@
-import './cabana/cabana-001-maurer-rose/maurer-rose'
+import './cabana/cabana-02-collatz-conjecture/collatz-conjecture'
