@@ -6,8 +6,10 @@ s.size(600, 750)
 let segments = []
 const a = new Vector(0, 100)
 const b = new Vector(600, 100)
-const c = new Vector(300, 600)
 const s1 = new Segment(a, b)
+const len = Vector.dist(a, b)
+const h = len * s.sqrt(3) / 2
+const c = new Vector(300, 100+h)
 const s2 = new Segment(b, c)
 const s3 = new Segment(c, a)
 segments.push(s1)
