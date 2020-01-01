@@ -1,1 +1,1 @@
-import './cabana/cabana-002-collatz-conjecture/collatz-conjecture'
+import './cc/cc-129-koch-fractal-snowflake/koch-fractal-snowflake'
