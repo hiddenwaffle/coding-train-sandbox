@@ -116,6 +116,7 @@ class Sketch {
     this.E = Math.E
     this.sqrt = Math.sqrt
     this.pow = Math.pow
+    this.exp = Math.exp
     this.abs = Math.abs
     this.min = Math.min
     this.max = Math.max
