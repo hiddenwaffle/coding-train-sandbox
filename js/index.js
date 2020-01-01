@@ -1,1 +1,1 @@
-import './cabana/cabana-02-collatz-conjecture/collatz-conjecture'
+import './cabana/cabana-002-collatz-conjecture/collatz-conjecture'
