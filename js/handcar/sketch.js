@@ -14,6 +14,9 @@ const _VALID_SHAPE_MODES = [DEFAULT, TRIANGLES]
 
 const TWO_PI = Math.PI * 2
 
+// Assuming that this saves on CPU cycles?
+const dateScratch = new Date()
+
 function present(x) {
   return x !== undefined && x !== null
 }
@@ -713,6 +716,42 @@ class Sketch {
     this.vertex(x2, y2)
     this.vertex(x3, y3)
     this.endShape(CLOSE)
+  }
+
+  day() {
+    dateScratch.setTime(Date.now())
+    return dateScratch.getDate()
+  }
+
+  hour() {
+    dateScratch.setTime(Date.now())
+    return dateScratch.getHours()
+  }
+
+  minute() {
+    dateScratch.setTime(Date.now())
+    return dateScratch.getMinutes()
+  }
+
+  millis() {
+    dateScratch.setTime(Date.now())
+    return dateScratch.getMilliseconds()
+  }
+
+  second() {
+    dateScratch.setTime(Date.now())
+    return dateScratch.getSeconds()
+  }
+
+  month() {
+    dateScratch.setTime(Date.now())
+    // JS 0 to 11 => Processing 1 to 12
+    return dateScratch.getMonth() + 1
+  }
+
+  year() {
+    dateScratch.setTime(Date.now())
+    return dateScratch.getFullYear()
   }
 }
 
