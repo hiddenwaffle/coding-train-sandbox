@@ -294,6 +294,8 @@ class Sketch {
     this.arc(px, py, pw, ph, 0, TWO_PI)
   }
 
+  // Differs from Processing: OPEN fill type only,
+  // no optional seventh parameter (no PIE or CHORD).
   arc(px, py, pw, ph, start, stop) {
     if (pw < 0) pw *= -1 // a p5 thing... Processing just acts like it is 0
     if (ph < 0) ph *= -1 // a p5 thing... Processing just acts like it is 0
