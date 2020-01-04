@@ -755,6 +755,13 @@ class Sketch {
     dateScratch.setTime(Date.now())
     return dateScratch.getFullYear()
   }
+
+  sortNumbers(arr) {
+    // Differs from Processing: This exists because JS's
+    // array sort() function uses "alphabetical" order,
+    // so this one is for numbers.
+    return arr.sort((a, b) => a > b)
+  }
 }
 
 // TODO: Use this somewhere? Might need adjustments to mouse position?
