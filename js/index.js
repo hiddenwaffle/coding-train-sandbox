@@ -1,1 +1,1 @@
-import './cc/cc-114-bubble-sort-viz/bubble-sort-viz'
+import './cc/cc-148-gift-wrapping/gift-wrapping'

@@ -75,6 +75,18 @@ class Vector {
     return Math.atan2(this.y, this.x)
   }
 
+  /**
+   * 2D cross product is a scalar.
+   * I think if this were 3D with zero as the z component,
+   * the scalar returned would represent the z of the
+   * resulting vector.
+   *
+   * This was added solely for coding challenge #148 (gift wrapping).
+   */
+  cross2D(other) {
+    return this.x * other.y - other.x * this.y
+  }
+
   dot(other) {
     return this.x * other.x + this.y * other.y
   }
