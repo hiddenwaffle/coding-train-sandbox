@@ -1,1 +1,1 @@
-import './cc/cc-144-black-hole-viz/black-hole-viz'
+import './cc/cc-071-minesweeper/minesweeper'
