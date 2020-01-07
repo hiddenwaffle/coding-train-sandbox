@@ -1,1 +1,1 @@
-import './cc/cc-071-minesweeper/minesweeper'
+import './cc/cc-143-quicksort-viz/quicksort-viz'
