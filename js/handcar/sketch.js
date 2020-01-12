@@ -544,6 +544,10 @@ class Sketch {
     return amt
   }
 
+  /**
+   * Differs from p5.js: when a = 0, the value is not random.
+   * In fact, it seems like it is always 0.5.
+   */
   noise(a, b, c, d) {
     let raw
     switch (arguments.length) {
@@ -564,6 +568,10 @@ class Sketch {
     }
     // Center and squish: Processing values are between 0 and 1.
     return (raw + 1) / 2
+  }
+
+  noiseSeed(clientSeed) {
+    this._osnApi = openSimplexNoise(clientSeed)
   }
 
   map(x, min1, max1, min2, max2) {
