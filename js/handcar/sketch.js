@@ -642,13 +642,17 @@ class Sketch {
     this.ctx.putImageData(this._capturedImageData, 0, 0)
   }
 
+  /**
+   * Warning: if specifying a value, decimals are truncated, so you
+   * may have to accept integers and then map() them afterwards.
+   */
   createSlider(min, max, value=min, step=1) {
     const element = document.createElement('input')
     this.canvas.parentElement.appendChild(element)
     element.type = 'range'
     element.min = min
     element.max = max
-    element.value = value // Truncates decimals for some reason
+    element.value = value // Browsers truncates decimals!
     element.step = step
     return {
       value(value) {

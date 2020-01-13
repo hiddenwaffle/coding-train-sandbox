@@ -1,1 +1,1 @@
-import './cc/cc-123-chaos-game/chaos-game-part-2'
+import './cc/cc-121-logo-interpreter/logo-interpreter'
