@@ -1,1 +1,1 @@
-import './cc/cc-136.1-polar-perlin-noise-loops/polar-perlin-noise-loops'
+import './cc/cc-123-chaos-game/chaos-game'
