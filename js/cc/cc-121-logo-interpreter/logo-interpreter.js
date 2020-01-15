@@ -3,6 +3,9 @@ import { Turtle } from './turtle'
 export const s = new Sketch()
 s.size(200, 200)
 
+// Unfinished, lost interest during Part 2
+// Part 2: https://www.youtube.com/watch?v=aOqEm101fms
+
 s.createP()
 const editor = document.createElement('textarea')
 editor.id = 'code'
