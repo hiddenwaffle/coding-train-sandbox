@@ -1,5 +1,7 @@
 import { openSimplexNoise } from './noise'
 
+// TODO: Add an int() method (as seen in Coding Train's Cabana #3)
+
 const CORNER = 'CORNER'
 const CENTER = 'CENTER'
 const _VALID_RECT_MODES = [CORNER, CENTER]
